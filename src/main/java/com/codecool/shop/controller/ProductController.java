@@ -37,7 +37,7 @@ public class ProductController extends HttpServlet {
 
 //        Map<String, List<Product>> allCategories = new HashMap<>();
 //        Map<String, List<Product>> allSuppliers = new HashMap<>();
-        Map<String, List<Product>> result = new HashMap<>();
+        Map<String, List<Product>> results = new HashMap<>();
 
         String categoryToSearch = req.getParameter("category");
         String supplierToSearch = req.getParameter("supplier");
@@ -46,22 +46,24 @@ public class ProductController extends HttpServlet {
 
         if (categoryToSearch != null) {
             ProductCategory foundProduct = productCategoryDataStore.find(categoryToSearch);
-            result.put(foundProduct.getName(), foundProduct.getProducts());
+            results.put(foundProduct.getName(), foundProduct.getProducts());
+            context.setVariable("searched", "category");
         }
 
         else if (supplierToSearch != null) {
             Supplier foundSupplier = supplierDataStore.find(supplierToSearch);
-            result.put(foundSupplier.getName(), foundSupplier.getProducts());
+            results.put(foundSupplier.getName(), foundSupplier.getProducts());
+            context.setVariable("searched", "supplier");
         }
 
         else {
             for (ProductCategory category : productCategoryDataStore.getAll()) {
-                result.put(category.getName(), category.getProducts());
+                results.put(category.getName(), category.getProducts());
             }
         }
 
 
-        context.setVariable("results", result);
+        context.setVariable("results", results);
         engine.process("product/index.html", context, resp.getWriter());
 
     }

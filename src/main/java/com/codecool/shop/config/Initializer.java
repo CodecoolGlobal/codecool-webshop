@@ -39,10 +39,10 @@ public class Initializer implements ServletContextListener {
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         productCategoryDataStore.add(tablet);
 
-        ProductCategory desktop = new ProductCategory("Desktop", "Hardware", "Weird box with black magic happening inside.");
+        ProductCategory desktop = new ProductCategory("Desktop", "Hardware", "Weird boxes with black magic happening inside.");
         productCategoryDataStore.add(desktop);
 
-        ProductCategory smartphone = new ProductCategory("Smartphone", "Hardware", "That think you use all day.");
+        ProductCategory smartphone = new ProductCategory("Smartphone", "Hardware", "That thing you use all day.");
         productCategoryDataStore.add(smartphone);
 
         ProductCategory car = new ProductCategory("Car", "Vehicles", "vroom vroom");
@@ -54,8 +54,8 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
         productDataStore.add(new Product("Apple Macbook", 1300, "USD", "It's a desktop machine.", desktop, apple));
         productDataStore.add(new Product("Apple Macbook 2", 1899, "USD", "It's a desktop machine but newer. 50% more power efficiency, also uses 50% more power. Only 46% more expensive", desktop, apple));
-        productDataStore.add(new Product("Samsung Galaxy S nagyonsok X Pro 2019", 1000, "USD", "I'm running out of ideas", smartphone, samsung));
-        productDataStore.add(new Product("Self-driving car", 999999999, "USD", "If you're already living in 3019", car, tesla));
+        productDataStore.add(new Product("Samsung Galaxy S nagyonsok X Pro 2019", 1000, "USD", "I'm running out of ideas.", smartphone, samsung));
+        productDataStore.add(new Product("Self-driving car", 999999999, "USD", "If you're already living in 3019.", car, tesla));
     }
 
     @Override
