@@ -7,6 +7,7 @@ import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.BaseModel;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -28,44 +29,51 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
-
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-//        Map<String, List<Product>> allCategories = new HashMap<>();
-//        Map<String, List<Product>> allSuppliers = new HashMap<>();
-        Map<String, List<Product>> results = new HashMap<>();
-
-        String categoryToSearch = req.getParameter("category");
-        String supplierToSearch = req.getParameter("supplier");
-
-
-
-        if (categoryToSearch != null) {
-            ProductCategory foundProduct = productCategoryDataStore.find(categoryToSearch);
-            results.put(foundProduct.getName(), foundProduct.getProducts());
-            context.setVariable("searched", "category");
-        }
-
-        else if (supplierToSearch != null) {
-            Supplier foundSupplier = supplierDataStore.find(supplierToSearch);
-            results.put(foundSupplier.getName(), foundSupplier.getProducts());
-            context.setVariable("searched", "supplier");
-        }
-
-        else {
-            for (ProductCategory category : productCategoryDataStore.getAll()) {
-                results.put(category.getName(), category.getProducts());
-            }
-        }
-
-
-        context.setVariable("results", results);
+        setupContextForPage(context, req);
         engine.process("product/index.html", context, resp.getWriter());
 
     }
 
+    private void setupContextForPage(WebContext context, HttpServletRequest req) {
+
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+
+        ProductCategory categoryToSearch = productCategoryDataStore.find(req.getParameter("category"));
+        Supplier supplierToSearch = supplierDataStore.find(req.getParameter("supplier"));
+
+        Map<BaseModel, List<Product>> results = new HashMap<>();
+        List<Product> matches;
+
+        if (categoryToSearch != null) {
+
+            matches = productDataStore.getBy(categoryToSearch);
+            results.put(categoryToSearch, matches);
+
+            context.setVariable("results", results);
+            context.setVariable("searched", "category");
+        }
+
+        else if (supplierToSearch != null) {
+
+            matches = productDataStore.getBy(supplierToSearch);
+            results.put(supplierToSearch, matches);
+
+            context.setVariable("results", results);
+            context.setVariable("searched", "supplier");
+
+        }
+
+        else {
+            for (ProductCategory category : productCategoryDataStore.getAll()) {
+                results.put(category, category.getProducts());
+            }
+
+            context.setVariable("results", results);
+        }
+    }
 }
