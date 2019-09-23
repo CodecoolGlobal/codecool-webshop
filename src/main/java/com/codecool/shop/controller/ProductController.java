@@ -39,18 +39,18 @@ public class ProductController extends HttpServlet {
 //        Map<String, List<Product>> allSuppliers = new HashMap<>();
         Map<String, List<Product>> result = new HashMap<>();
 
-        String searchCategory = req.getParameter("category");
-        String searchSupplier = req.getParameter("supplier");
+        String categoryToSearch = req.getParameter("category");
+        String supplierToSearch = req.getParameter("supplier");
 
 
 
-        if (searchCategory != null) {
-            ProductCategory foundProduct = productCategoryDataStore.find(searchCategory);
+        if (categoryToSearch != null) {
+            ProductCategory foundProduct = productCategoryDataStore.find(categoryToSearch);
             result.put(foundProduct.getName(), foundProduct.getProducts());
         }
 
-        else if (searchSupplier != null) {
-            Supplier foundSupplier = supplierDataStore.find(searchSupplier);
+        else if (supplierToSearch != null) {
+            Supplier foundSupplier = supplierDataStore.find(supplierToSearch);
             result.put(foundSupplier.getName(), foundSupplier.getProducts());
         }
 
