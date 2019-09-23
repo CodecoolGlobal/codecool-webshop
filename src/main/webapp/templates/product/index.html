@@ -36,11 +36,15 @@
 
 <div class="container">
 
-    <div class="card" th:each="category : ${categories}">
-        <a th:href="@{/(category=${category.key})}"  th:text="${category.key}">Category Title</a>
+    <div class="card" th:each="result : ${results}">
+        <a th:href="@{/(category=${result.key})}" th:text="${result.key}">Category Title</a>
+
+<!--        <div class="card" >-->
+<!--            <p th:text="${result}"></p>-->
+<!--        </div>-->
 
         <div id="products" class="row">
-            <div class="col col-sm-12 col-md-6 col-lg-4" th:each="product,iterStat : ${category.value}">
+            <div class="col col-sm-12 col-md-6 col-lg-4" th:each="product,iterStat : ${result.value}">
                 <div class="card">
                     <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${product.id} + '.jpg'" alt="" />
                     <div class="card-header">
@@ -61,31 +65,7 @@
             </div>
         </div>
     </div>
-
-    <!--<div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
-    </div>
-
-    <div id="products" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="product,iterStat : ${products}">
-            <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${product.id} + '.jpg'" alt="" />
-                <div class="card-header">
-                    <h4 class="card-title" th:text="${product.name}">Product name</h4>
-                    <p class="card-text" th:text="${product.description}">Product description... </p>
-                </div>
-                <div class="card-body">
-                    <div class="card-text">
-                        <p class="lead" th:text="${product.getPrice()}">100 USD</p>
-                    </div>
-                    <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
-
+    
 </div>
 
 <div th:replace="footer.html :: copy"></div>
