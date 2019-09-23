@@ -31,20 +31,24 @@ public class ProductController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        //context.setVariable("categories", productCategoryDataStore.getAll());
-        //context.setVariable("products", productDataStore.getAll());
+        Map<String, List<Product>> allCategories = new HashMap<>();
 
-        // // Alternative setting of the template context
-        Map<String, List<Product>> params = new HashMap<>();
+        String searchCategory = req.getParameter("category");
 
-        for (ProductCategory category : productCategoryDataStore.getAll()) {
-            params.put(category.getName(), category.getProducts());
+        if(searchCategory!=null){
+            ProductCategory foundProduct = productCategoryDataStore.find(searchCategory);
+                allCategories.put(foundProduct.getName(), foundProduct.getProducts());
+
+        } else {
+            for (ProductCategory category : productCategoryDataStore.getAll()) {
+                allCategories.put(category.getName(), category.getProducts());
+            }
         }
 
-        //params.put("category", productCategoryDataStore.find(1));
-        // params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
-        context.setVariable("categories", params);
+
+        context.setVariable("categories", allCategories);
         engine.process("product/index.html", context, resp.getWriter());
+
     }
 
 }
