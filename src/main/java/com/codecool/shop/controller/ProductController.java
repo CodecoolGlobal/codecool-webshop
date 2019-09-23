@@ -34,6 +34,9 @@ public class ProductController extends HttpServlet {
         Map<String, List<Product>> allCategories = new HashMap<>();
 
         String searchCategory = req.getParameter("category");
+        String searchSupplier = req.getParameter("supplier");
+
+
 
         if(searchCategory!=null){
             ProductCategory foundProduct = productCategoryDataStore.find(searchCategory);
