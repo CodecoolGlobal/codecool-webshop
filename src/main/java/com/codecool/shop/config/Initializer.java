@@ -36,13 +36,13 @@ public class Initializer implements ServletContextListener {
         supplierDataStore.add(tesla);
 
         //setting up a new product category
-        ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
+        ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "Thin, flat mobile computer with a touchscreen display");
         productCategoryDataStore.add(tablet);
 
-        ProductCategory desktop = new ProductCategory("Desktop", "Hardware", "Weird boxes with black magic happening inside.");
+        ProductCategory desktop = new ProductCategory("Desktop", "Hardware", "Weird boxes with black magic happening inside");
         productCategoryDataStore.add(desktop);
 
-        ProductCategory smartphone = new ProductCategory("Smartphone", "Hardware", "That thing you use all day.");
+        ProductCategory smartphone = new ProductCategory("Smartphone", "Hardware", "That thing you use all day");
         productCategoryDataStore.add(smartphone);
 
         ProductCategory car = new ProductCategory("Car", "Vehicles", "vroom vroom");
