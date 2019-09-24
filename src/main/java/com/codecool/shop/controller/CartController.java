@@ -48,19 +48,54 @@ public class CartController extends HttpServlet {
         HttpSession session = req.getSession();
 
         List<Product> cartProductList = (List<Product>) session.getAttribute("cart");
+
         Map<Product, Integer> productQuantities = new HashMap<>();
 
         if (cartProductList != null) {
-            for (Product product : cartProductList){
-                if(productQuantities.containsKey(product)){
-                    productQuantities.put(product, productQuantities.get(product) + 1);
-                } else {
-                    productQuantities.put(product, 1);
-                }
+            setupCart(cartProductList, productQuantities);
+
+            if (req.getParameter("change-quantity") != null) {
+
+                int quantityModifier = Integer.parseInt(req.getParameter("change-quantity"));
+                editCart(cartProductList, productQuantities, quantityModifier);
             }
         }
 
         context.setVariable("product_map", productQuantities);
         engine.process("product/cart.html", context, resp.getWriter());
+    }
+
+    private void setupCart(List<Product> productList, Map<Product, Integer> productQuantities) {
+        for (Product product : productList){
+
+            if (productQuantities.containsKey(product)) {
+                productQuantities.put(product, productQuantities.get(product) + 1);
+            }
+
+            else {
+                productQuantities.put(product, 1);
+            }
+        }
+    }
+
+    private void editCart(List<Product> productList, Map<Product, Integer> productQuantities, int quantityModifier) {
+        for (Product product : productList){
+
+            if (productQuantities.containsKey(product)) {
+
+                int newQuantity = productQuantities.get(product) + quantityModifier;
+
+                if (newQuantity > 0) {
+                    productQuantities.put(product, newQuantity);
+
+                }
+                else {
+                    productQuantities.remove(product);
+                    cart.removeProduct(product);
+                }
+
+                break;
+            }
+        }
     }
 }
