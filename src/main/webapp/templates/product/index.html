@@ -36,7 +36,7 @@
 
 <div class="container">
 
-    <div class="card" ><p th:text="'Cart size: ' + ${cart_size}"></p></div>
+    <div class="card" ><a href="/cart" th:text="'Cart size: ' + ${cart_size}"></a></div>
 
     <div class="card" th:each="result : ${results}">
         <a th:href="@{/(category=${result.key.name})}" th:text="${result.key.name}">Category Title</a>

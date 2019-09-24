@@ -36,7 +36,6 @@ public class ProductController extends HttpServlet {
 
         setupContextForPage(context, req);
         engine.process("product/index.html", context, resp.getWriter());
-
     }
 
     private void setupContextForPage(WebContext context, HttpServletRequest req) {
@@ -75,14 +74,12 @@ public class ProductController extends HttpServlet {
             results.put(supplierToSearch, matches);
 
             context.setVariable("searched", "supplier");
-
         }
 
         else {
             for (ProductCategory category : productCategoryDataStore.getAll()) {
                 results.put(category, category.getProducts());
             }
-
         }
         context.setVariable("results", results);
     }
