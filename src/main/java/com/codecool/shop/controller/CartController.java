@@ -18,6 +18,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 @WebServlet(urlPatterns = {"/cart"})
 public class CartController extends HttpServlet {
@@ -59,6 +63,13 @@ public class CartController extends HttpServlet {
                 }
             }
         }
+
+        /*Map<Product, Long> productQuantities =
+                cartProductList.stream().collect(
+                        groupingBy(
+                                x -> x, Collectors.counting()
+                        )
+                );*/
 
         context.setVariable("product_map", productQuantities);
         engine.process("product/cart.html", context, resp.getWriter());
