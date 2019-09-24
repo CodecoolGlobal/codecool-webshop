@@ -54,7 +54,6 @@ public class ProductController extends HttpServlet {
             matches = productDataStore.getBy(categoryToSearch);
             results.put(categoryToSearch, matches);
 
-            context.setVariable("results", results);
             context.setVariable("searched", "category");
         }
 
@@ -63,7 +62,6 @@ public class ProductController extends HttpServlet {
             matches = productDataStore.getBy(supplierToSearch);
             results.put(supplierToSearch, matches);
 
-            context.setVariable("results", results);
             context.setVariable("searched", "supplier");
 
         }
@@ -73,7 +71,7 @@ public class ProductController extends HttpServlet {
                 results.put(category, category.getProducts());
             }
 
-            context.setVariable("results", results);
         }
+        context.setVariable("results", results);
     }
 }
