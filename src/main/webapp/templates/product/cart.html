@@ -65,15 +65,15 @@
                         </td>
 
                         <td class="col col-4" style="font-size: 32px">
-                            <form action="/cart-remove" method="post">
-                                <input type="hidden" name="product" th:value="${product.key.id}">
+                            <form action="/cart-remove" method="post" style="display: inline-block">
+                                <input type="hidden" name="product_id" th:value="${product.key.id}">
                                 <input type="submit" value="-"/>
                             </form>
 
                             <span th:text="${'  ' + product.value + '  '}" style="white-space: pre"></span>
 
-                            <form action="/cart-add" method="post">
-                                <input type="hidden" name="product" th:value="${product.key.id}">
+                            <form action="/cart-add" method="post" style="display: inline-block">
+                                <input type="hidden" name="product_id" th:value="${product.key.id}">
                                 <input type="submit" value="+"/>
                             </form>
 

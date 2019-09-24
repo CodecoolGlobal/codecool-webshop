@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.net.http.HttpRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,43 +27,35 @@ public class CartController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String url = req.getServletPath();
+        int productId = Integer.parseInt(req.getParameter("product_id"));
 
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        int productId = Integer.parseInt(req.getParameter("product"));
+        // as of now, any post request sent here should pass a product_id param
 
         if (url.equals("/cart")) {
-            addToCart(req, resp, productId);
+            editCart(req, resp, productId, "add");
             resp.sendRedirect("/");
         }
 
         else if (url.equals("/cart-add")) {
-            addToCart(req, resp, productId);
+            editCart(req, resp, productId, "add");
             resp.sendRedirect("/cart");
         }
 
         else if (url.equals("/cart-remove")) {
-            removeFromCart(req, resp, productId);
+            editCart(req, resp, productId, "remove");
             resp.sendRedirect("/cart");
         }
     }
 
-    private void addToCart(HttpServletRequest req,  HttpServletResponse resp, int addedProductId) throws IOException {
+    private void editCart(HttpServletRequest req, HttpServletResponse resp, int productId, String action) throws IOException {
         ProductDao productDataStore = ProductDaoMem.getInstance();
-        Product selectedProduct = productDataStore.find(addedProductId);
+        Product product = productDataStore.find(productId);
         HttpSession session = req.getSession();
 
-        cart.addProduct(selectedProduct);
+        if (action.equals("add")) cart.addProduct(product);
+        else if (action.equals("remove")) cart.removeProduct(product);
+
         session.setAttribute("cart", cart.getAddedProducts());
-    }
-
-    private void removeFromCart(HttpServletRequest req,  HttpServletResponse resp, int addedProductId) throws IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        Product selectedProduct = productDataStore.find(addedProductId);
-        HttpSession session = req.getSession();
-
-        cart.removeProduct(selectedProduct);
-        session.setAttribute("cart", cart.getAddedProducts());
-
     }
 
     @Override
