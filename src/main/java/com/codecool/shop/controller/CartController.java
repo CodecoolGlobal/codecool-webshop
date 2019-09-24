@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/cart", "/cart-add", "/cart-remove"})
+@WebServlet(urlPatterns = {"/cart", "/cart-add", "/cart-remove", "/cart-removeall"})
 public class CartController extends HttpServlet {
 
     Cart cart = new Cart();
@@ -45,6 +45,11 @@ public class CartController extends HttpServlet {
             editCart(req, resp, productId, "remove");
             resp.sendRedirect("/cart");
         }
+
+        else if (url.equals("/cart-removeall")) {
+            editCart(req, resp, productId, "removeall");
+            resp.sendRedirect("/cart");
+        }
     }
 
     private void editCart(HttpServletRequest req, HttpServletResponse resp, int productId, String action) throws IOException {
@@ -52,10 +57,19 @@ public class CartController extends HttpServlet {
         Product product = productDataStore.find(productId);
         HttpSession session = req.getSession();
 
-        if (action.equals("add")) cart.addProduct(product);
-        else if (action.equals("remove")) cart.removeProduct(product);
+        switch (action) {
+            case "add":
+                cart.addProduct(product);
+                break;
+            case "remove":
+                cart.removeProduct(product);
+                break;
+            case "removeall":
+                cart.removeAllProductInstances(product);
+                break;
+        }
 
-        session.setAttribute("cart", cart.getAddedProducts());
+        session.setAttribute("cart", cart.getProductsInCart());
     }
 
     @Override

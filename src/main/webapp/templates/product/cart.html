@@ -77,8 +77,11 @@
                                 <input type="submit" value="+"/>
                             </form>
 
-                            <br>
-                            <a href="#" style="font-size: 22px">Remove all</a>
+                            <br><br>
+                            <form action="/cart-removeall" method="post">
+                                <input type="hidden" name="product_id" th:value="${product.key.id}">
+                                <input type="submit" value="Remove all"/>
+                            </form>
                         </td>
 
                         <td class="col col-2" th:text="${product.key.defaultPrice}"></td>
