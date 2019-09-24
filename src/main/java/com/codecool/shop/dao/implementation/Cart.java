@@ -31,6 +31,8 @@ public class Cart {
     public int getTotalPrice() {
         int totalPrice = 0;
 
+        //TODO should be changed to double and handle rounding on website
+
         for (Product product : productsInCart) {
             totalPrice += product.getDefaultPrice();
         }
