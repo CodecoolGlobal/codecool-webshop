@@ -46,8 +46,8 @@
                 <tr>
                     <th>Product name</th>
                     <th>Product quantity</th>
-                    <th>Unit price</th>
-                    <th>Sub total</th>
+                    <th>Unit price (USD)</th>
+                    <th>Sub total (USD)</th>
                 </tr>
             </thead>
             <tbody>
@@ -65,9 +65,17 @@
                         </td>
 
                         <td class="col col-4" style="font-size: 32px">
-                            <a href="?change-quantity=-1" style="white-space: pre">   -   </a>
-                            <span th:text="${product.value}"></span>
-                            <a href="?change-quantity=1" style="white-space: pre">   +   </a>
+                            <form action="/cart-remove" method="post">
+                                <input type="hidden" name="product" th:value="${product.key.id}">
+                                <input type="submit" value="-"/>
+                            </form>
+
+                            <span th:text="${'  ' + product.value + '  '}" style="white-space: pre"></span>
+
+                            <form action="/cart-add" method="post">
+                                <input type="hidden" name="product" th:value="${product.key.id}">
+                                <input type="submit" value="+"/>
+                            </form>
 
                             <br>
                             <a href="#" style="font-size: 22px">Remove all</a>
@@ -76,7 +84,7 @@
                         <td class="col col-2" th:text="${product.key.defaultPrice}"></td>
 
                         <td class="col col-2" th:with="fullprice=${product.value * product.key.defaultPrice}">
-                            <span th:text="${fullprice} + ' ' + ${product.key.defaultCurrency}"></span>
+                            <span th:text="${fullprice}"></span>
                         </td>
                     </tr>
                 </div>
