@@ -27,4 +27,14 @@ public class Cart {
             productsInCart.remove(product);
         }
     }
+
+    public int getTotalPrice() {
+        int totalPrice = 0;
+
+        for (Product product : productsInCart) {
+            totalPrice += product.getDefaultPrice();
+        }
+
+        return totalPrice;
+    }
 }

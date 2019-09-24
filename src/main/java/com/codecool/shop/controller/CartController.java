@@ -29,26 +29,25 @@ public class CartController extends HttpServlet {
         String url = req.getServletPath();
         int productId = Integer.parseInt(req.getParameter("product_id"));
 
-        // as of now, any post request sent here should pass a product_id param
+        // !! as it stands, any post request sent here should pass a product_id param !!
 
-        if (url.equals("/cart")) {
-            editCart(req, resp, productId, "add");
-            resp.sendRedirect("/");
-        }
-
-        else if (url.equals("/cart-add")) {
-            editCart(req, resp, productId, "add");
-            resp.sendRedirect("/cart");
-        }
-
-        else if (url.equals("/cart-remove")) {
-            editCart(req, resp, productId, "remove");
-            resp.sendRedirect("/cart");
-        }
-
-        else if (url.equals("/cart-removeall")) {
-            editCart(req, resp, productId, "removeall");
-            resp.sendRedirect("/cart");
+        switch (url) {
+            case "/cart":
+                editCart(req, resp, productId, "add");
+                resp.sendRedirect("/");
+                break;
+            case "/cart-add":
+                editCart(req, resp, productId, "add");
+                resp.sendRedirect("/cart");
+                break;
+            case "/cart-remove":
+                editCart(req, resp, productId, "remove");
+                resp.sendRedirect("/cart");
+                break;
+            case "/cart-removeall":
+                editCart(req, resp, productId, "removeall");
+                resp.sendRedirect("/cart");
+                break;
         }
     }
 
@@ -81,11 +80,13 @@ public class CartController extends HttpServlet {
 
         List<Product> cartProductList = (List<Product>) session.getAttribute("cart");
         Map<Product, Integer> productQuantities = new HashMap<>();
+        int totalPrice = cart.getTotalPrice();
 
         if (cartProductList != null) {
             setupCart(cartProductList, productQuantities);
         }
 
+        context.setVariable("total_price", totalPrice);
         context.setVariable("product_map", productQuantities);
         engine.process("product/cart.html", context, resp.getWriter());
     }
