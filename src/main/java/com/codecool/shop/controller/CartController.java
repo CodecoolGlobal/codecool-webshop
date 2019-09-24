@@ -22,7 +22,7 @@ import java.util.Map;
 @WebServlet(urlPatterns = {"/cart"})
 public class CartController extends HttpServlet {
 
-    Cart cart = new Cart();
+    private Cart cart = new Cart();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -36,38 +36,19 @@
 
 <div class="container">
 
-    <div class="card" th:if="${product_map.size() != 0}">
-        <table>
-            <thead>
-                <tr>
-                    <th>Product name</th>
-                    <th>Product quantity</th>
-                    <th>Unit price</th>
-                    <th>Sub total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="product : ${product_map}">
-                    <td th:text="${product.key.name}"></td>
-                    <td th:text="${product.value}"></td>
-                    <td th:text="${product.key.getDefaultPrice()}"></td>
-                    <td th:with="fullprice=${product.value * product.key.getDefaultPrice()}">
-                        <span th:text="${fullprice} + ' ' + ${product.key.getDefaultCurrency()}"></span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="card">
+        <form action="/checkout" method="post">
+            <label for="buyer-name-input">Full Name:</label><br>
+            <input id="buyer-name-input" type="text" name="buyer-name"><br>
+
+            <label for="buyer-email-input">Email address:</label><br>
+            <input id="buyer-email-input" type="text" name="buyer-email"><br>
+
+            <label for="buyer-phone-number-input">Phone number:</label><br>
+            <input id="buyer-phone-number-input" type="text" name="buyer-phone-number"><br>
+            <button type="submit">Submit</button>
+        </form>
     </div>
-
-    <button type="button"><a href="/checkout">Checkout</a></button>
-
-    <div th:if="${product_map.size() == 0}">
-        <p>Suck it</p>
-    </div>
-
-</div>
-
-<div th:replace="footer.html :: copy"></div>
 
 </body>
 </html>
