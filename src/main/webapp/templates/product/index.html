@@ -36,6 +36,8 @@
 
 <div class="container">
 
+    <div class="card" ><p th:text="'Cart size: ' + ${cart_size}"></p></div>
+
     <div class="card" th:each="result : ${results}">
         <a th:href="@{/(category=${result.key.name})}" th:text="${result.key.name}">Category Title</a>
 
@@ -48,8 +50,6 @@
                 <p th:text="${result.value.get(0).getProductCategory().getDescription()}" class="description"></p>
             </div>
         </div>
-
-
 
         <div id="products" class="row">
             <div class="col col-sm-12 col-md-6 col-lg-4" th:each="product,iterStat : ${result.value}">
@@ -67,7 +67,10 @@
                             <p class="lead" th:text="${product.price}">100 USD</p>
                         </div>
                         <div class="card-text">
-                            <a class="btn btn-success" href="#">Add to cart</a>
+                            <form action="/cart" method="post">
+                                <input type="hidden" name="product" th:id="'product-' + ${product.id}" th:value="${product.id}">
+                                <button type="submit" class="btn btn-success">Add to cart</button>
+                            </form>
                         </div>
                     </div>
                 </div>
