@@ -37,6 +37,8 @@
 <div class="container">
 
     <div class="card" th:if="${product_map.size() != 0}">
+        <h4>Cart content</h4>
+
         <table>
             <thead>
                 <tr>
@@ -47,14 +49,27 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="product : ${product_map}">
-                    <td th:text="${product.key.name}"></td>
-                    <td th:text="${product.value}"></td>
-                    <td th:text="${product.key.getDefaultPrice()}"></td>
-                    <td th:with="fullprice=${product.value * product.key.getDefaultPrice()}">
-                        <span th:text="${fullprice} + ' ' + ${product.key.getDefaultCurrency()}"></span>
-                    </td>
-                </tr>
+                <div class="row">
+                    <tr th:each="product : ${product_map}">
+                        
+                        <td>
+                            <div class="card">
+                                <div class="card-header">
+                                    <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${product.key.id} + '.jpg'" alt="" />
+                                    <h4 th:text="${product.key.name}"></h4>
+                                    <p class="card-text" th:text="${product.key.description}">Product description... </p>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td th:text="${product.value}"></td>
+                        <td th:text="${product.key.getDefaultPrice()}"></td>
+
+                        <td th:with="fullprice=${product.value * product.key.getDefaultPrice()}">
+                            <span th:text="${fullprice} + ' ' + ${product.key.getDefaultCurrency()}"></span>
+                        </td>
+                    </tr>
+                </div>
             </tbody>
         </table>
     </div>
