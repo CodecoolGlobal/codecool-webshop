@@ -39,14 +39,12 @@
     <div class="card" th:each="result : ${results}">
         <a th:href="@{/(category=${result.key.name})}" th:text="${result.key.name}">Category Title</a>
 
-        <div th:if="${searched}">
-            <div th:if="${searched == 'supplier'}" class="card">
-                <p th:text="${result.value.get(0).getSupplier().getDescription()}" class="description"></p>
-            </div>
+        <div th:if="${searched == 'supplier'}" class="card">
+            <p th:text="${result.value.get(0).getSupplier().getDescription()}" class="description"></p>
+        </div>
 
-            <div th:if="${searched == 'category'}" class="card">
-                <p th:text="${result.value.get(0).getProductCategory().getDescription()}" class="description"></p>
-            </div>
+        <div th:if="${searched == 'category'}" class="card">
+            <p th:text="${result.value.get(0).getProductCategory().getDescription()}" class="description"></p>
         </div>
 
 
