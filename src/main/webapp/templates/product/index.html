@@ -26,6 +26,7 @@
     <!-- End of Bootstrap components -->
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css" />
 </head>
 
 <body>
@@ -36,10 +37,15 @@
 
 <div class="container">
 
-    <div class="card" ><a href="/cart" th:text="'Cart size: ' + ${cart_size}"></a></div>
+    <div class="cart-size">
+        <p th:text="${cart_size} + ' items in Cart'"></p>
+        <a href="/cart">Show Cart</a>
+        <span>&#128722;</span>
+    </div>
+    <br>
 
-    <div class="card" th:each="result : ${results}">
-        <a th:href="@{/(category=${result.key.name})}" th:text="${result.key.name}">Category Title</a>
+    <div class="card" th:each="result : ${results}" id="product-categories">
+        <a th:text="${result.key.name} + 's' " class="product-category-name">Category Title</a>
 
         <div th:if="${searched == 'supplier'}" class="card">
             <p th:text="${result.value.get(0).getSupplier().getDescription()}" class="description"></p>
@@ -51,14 +57,16 @@
 
         <div id="products" class="row">
             <div class="col col-sm-12 col-md-6 col-lg-4" th:each="product,iterStat : ${result.value}">
-                <div class="card">
+                <div class="card product-card">
                     <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${product.id} + '.jpg'" alt="" />
                     <div class="card-header">
-                        <h4 class="card-title" th:text="${product.name}">Product name</h4>
-                        <p class="card-text" th:text="${product.description}">Product description... </p>
-                        <span>More products by</span>
-                        <a th:href="@{/(supplier=${product.supplier.name})}" class="card-supplier"
-                           th:text="${product.supplier.name}"></a>
+                        <div class="card-text-container">
+                            <h4 class="card-title" th:text="${product.name}">Product name</h4>
+                            <p class="card-text" th:text="${product.description}">Product description... </p>
+                            <span>More products by</span>
+                            <a th:href="@{/(supplier=${product.supplier.name})}" class="card-supplier"
+                               th:text="${product.supplier.name}"></a>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="card-text">
@@ -74,6 +82,9 @@
                 </div>
             </div>
         </div>
+
+        <a th:href="@{/(category=${result.key.name})}" class="category-show-more">More...</a>
+
     </div>
 
 </div>
