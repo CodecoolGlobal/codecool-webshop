@@ -1,9 +1,9 @@
-const extendAddressFormButton = document.querySelector('#same-shipping-address');
+const extendAddressFormButton = document.querySelector('#different-shipping-address');
+const includeAddressFormButton = document.querySelector('#same-shipping-address');
+const placeHolderDiv = document.querySelector('#extended-address-input-placeholder');
 
 
-//TODO give default values to the inputs
 extendAddressFormButton.addEventListener('click', function() {
-    let testDiv = document.querySelector('#extended-address-input-placeholder');
 
     let extendedForm = `<h3>Shipping Address:</h3>
 
@@ -20,5 +20,9 @@ extendAddressFormButton.addEventListener('click', function() {
                 <input id="buyer-shipping-address-input" type="text" name="buyer-shipping-address" required minlength="1"><br>
         `
 
-    testDiv.innerHTML = extendedForm;
+    placeHolderDiv.innerHTML = extendedForm;
+})
+
+includeAddressFormButton.addEventListener('click', function() {
+    placeHolderDiv.innerHTML = ``;
 })
