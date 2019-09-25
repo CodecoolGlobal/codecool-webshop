@@ -1,0 +1,29 @@
+.container {
+    text-align: center;
+    margin: auto;
+}
+
+h4 {
+    text-align: right;
+}
+
+#product-card {
+    margin: 10px;
+}
+
+#quantity-modifier {
+    font-size: 32px;
+}
+
+#quantity-modifier form {
+    display: inline-block;
+}
+
+#empty-cart-div {
+    text-align: center;
+}
+
+#checkout {
+    text-align: right;
+    margin: 10px;
+}

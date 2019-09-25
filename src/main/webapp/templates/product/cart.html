@@ -26,6 +26,7 @@
     <!-- End of Bootstrap components -->
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/cart.css" />
 </head>
 
 <body>
@@ -34,14 +35,18 @@
     <h1><a href="/">Codecool Shop</a></h1>
 </div>
 
-<div class="container" style="text-align: center; margin: auto;" th:if="${product_map.size() > 0}">
+<div class="container" th:if="${product_map.size() > 0}">
 
     <h2>Cart content</h2>
     <br>
-    <h4 th:text="${'Full price (USD): ' + total_price}" style="text-align: right">Total price</h4>
+    <h4 id="total-price" th:text="${'Full price (USD): ' + total_price}">Total price</h4>
 
 <!--    checkout comes here?-->
-    <button type="button"><a href="/checkout">Checkout</a></button>
+    <div id="checkout">
+        <form action="/checkout" method="get">
+            <button type="submit" class="btn btn-success">Checkout</button>
+        </form>
+    </div>
 <!--    better on the bottom?-->
 
     <div class="card">
@@ -60,7 +65,7 @@
                     <tr th:each="product : ${product_map}" class="col col-4">
 
                         <td>
-                            <div class="card" style="margin: 10px;">
+                            <div class="card" id="product-card">
                                 <div class="card-header">
                                     <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${product.key.id} + '.jpg'" alt="" />
                                     <h4 th:text="${product.key.name}"></h4>
@@ -69,15 +74,15 @@
                             </div>
                         </td>
 
-                        <td class="col col-4" style="font-size: 32px">
-                            <form action="/cart-remove" method="post" style="display: inline-block">
+                        <td class="col col-4" id="quantity-modifier">
+                            <form action="/cart-remove" method="post">
                                 <input type="hidden" name="product_id" th:value="${product.key.id}">
                                 <input type="submit" value="-"/>
                             </form>
 
                             <span th:text="${'  ' + product.value + '  '}" style="white-space: pre"></span>
 
-                            <form action="/cart-add" method="post" style="display: inline-block">
+                            <form action="/cart-add" method="post">
                                 <input type="hidden" name="product_id" th:value="${product.key.id}">
                                 <input type="submit" value="+"/>
                             </form>
@@ -99,9 +104,10 @@
             </tbody>
         </table>
     </div>
+
 </div>
 
-<div th:if="${product_map.size() == 0}" style="text-align: center">
+<div th:if="${product_map.size() == 0}" id="empty-cart-div">
     <h2>Cart empty</h2>
     <br>
 </div>
