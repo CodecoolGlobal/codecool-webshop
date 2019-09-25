@@ -6,19 +6,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
-    protected List<Product> addedProducts = new ArrayList<>();
+    protected List<Product> productsInCart = new ArrayList<>();
 
-    public List<Product> getAddedProducts() {
-        return addedProducts;
+    public List<Product> getProductsInCart() {
+        return productsInCart;
     }
 
     public void addProduct(Product product) {
-        this.addedProducts.add(product);
+        this.productsInCart.add(product);
     }
 
     public void removeProduct(Product product) {
-        if (this.addedProducts.contains(product)) {
-            this.addedProducts.remove(product);
+        if (productsInCart.contains(product)) {
+            productsInCart.remove(product);
         }
+    }
+
+    public void removeAllProductInstances(Product product) {
+        while (productsInCart.contains(product)) {
+            productsInCart.remove(product);
+        }
+    }
+
+    public int getTotalPrice() {
+        int totalPrice = 0;
+
+        //TODO should be changed to double and handle rounding on website
+
+        for (Product product : productsInCart) {
+            totalPrice += product.getDefaultPrice();
+        }
+
+        return totalPrice;
     }
 }
