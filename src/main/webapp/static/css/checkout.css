@@ -1,0 +1,9 @@
+.container .card {
+    display: inline-block;
+    margin: 20px;
+}
+
+#checkout-submit {
+    font-size: 22px;
+    text-align: right;
+}
