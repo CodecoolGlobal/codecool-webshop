@@ -34,7 +34,7 @@ public class CartController extends HttpServlet {
         switch (url) {
             case "/cart":
                 editCart(req, resp, productId, "add");
-                resp.sendRedirect("/");
+                checkIfFiltered(req, resp);
                 break;
             case "/cart-add":
                 editCart(req, resp, productId, "add");
@@ -49,6 +49,14 @@ public class CartController extends HttpServlet {
                 resp.sendRedirect("/cart");
                 break;
         }
+    }
+
+    private void checkIfFiltered(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String url = req.getHeader("referer");
+
+        if (url.contains("category")) resp.sendRedirect(url);
+        else if (url.contains("supplier")) resp.sendRedirect(url);
+        else resp.sendRedirect("/");
     }
 
     private void editCart(HttpServletRequest req, HttpServletResponse resp, int productId, String action) throws IOException {
