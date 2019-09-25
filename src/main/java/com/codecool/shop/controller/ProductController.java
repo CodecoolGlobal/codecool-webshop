@@ -79,6 +79,7 @@ public class ProductController extends HttpServlet {
         else {
             for (ProductCategory category : productCategoryDataStore.getAll()) {
                 results.put(category, category.getProducts());
+                //TODO should change to category.getFirstThreeProducts()
             }
         }
         context.setVariable("results", results);

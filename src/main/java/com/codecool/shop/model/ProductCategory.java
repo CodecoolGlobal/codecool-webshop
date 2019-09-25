@@ -1,6 +1,7 @@
 package com.codecool.shop.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ProductCategory extends BaseModel {
@@ -27,6 +28,11 @@ public class ProductCategory extends BaseModel {
 
     public List<Product> getProducts() {
         return this.products;
+    }
+
+    public List<Product> getFirstThreeProducts() {
+        List<Product> firsThree = products.subList(0, 3);
+        return firsThree;
     }
 
     public void addProduct(Product product) {

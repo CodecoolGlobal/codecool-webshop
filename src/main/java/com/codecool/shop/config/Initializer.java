@@ -48,6 +48,9 @@ public class Initializer implements ServletContextListener {
         ProductCategory car = new ProductCategory("Car", "Vehicles", "vroom vroom");
         productCategoryDataStore.add(car);
 
+        ProductCategory accessory = new ProductCategory("Accessory", "Whatever", "Accessories");
+        productCategoryDataStore.add(accessory);
+
         //setting up products and printing it
 
         // product_1
@@ -72,18 +75,28 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Self-driving car", 999999999, "USD", "If you're already living in 3019.", car, tesla));
 
         // product_8
+        productDataStore.add(new Product("Wireless phone charger", 49, "USD", "More oomph for your phone, anywhere!", accessory, tesla));
 
         // product_9
+        productDataStore.add(new Product("Tesla Shirt", 39, "USD", "Wearing this will double your IQ.", accessory, tesla));
 
         // product_10
+        productDataStore.add(new Product("I don't even know what this is", 19, "USD", "some screen cleaner i guess", accessory, apple));
 
         // product_11
+        productDataStore.add(new Product("Death Ray", 0, "USD", "Or the Peace Ray, as Tesla called it. " +
+                "Tesla believed that by accelerating mercury isotopes to 48 times the speed of sound, the resulting " +
+                "beam would produce enough energy to destroy entire armies at a distance limited only by " +
+                "the curvature of the Earth.", accessory, tesla));
 
         // product_12
+        productDataStore.add(new Product("Zsiguli", 195, "USD", "Some things just never get old.", car,  amazon));
 
         // product_13
 
         // product_14
+
+        //TODO stofi as supplier! products: bambuszfogpiszkáló, tompahegyű nyíl, csutkapipa
     }
 
     @Override

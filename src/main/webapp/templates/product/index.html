@@ -45,13 +45,13 @@
     <br>
 
     <div class="card" th:each="result : ${results}" id="product-categories">
-        <a th:text="${result.key.name} + 's' " class="product-category-name">Category Title</a>
+        <a th:text="${result.key.name} " class="product-category-name">Category Title</a>
 
-        <div th:if="${searched == 'supplier'}" class="card">
+        <div th:if="${searched == 'supplier'}">
             <p th:text="${result.value.get(0).getSupplier().getDescription()}" class="description"></p>
         </div>
 
-        <div th:if="${searched == 'category'}" class="card">
+        <div th:if="${searched == 'category'}">
             <p th:text="${result.value.get(0).getProductCategory().getDescription()}" class="description"></p>
         </div>
 
