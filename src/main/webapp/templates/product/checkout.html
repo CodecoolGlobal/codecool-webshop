@@ -68,17 +68,21 @@
                     <input id="buyer-billing-address-input" type="text" name="buyer-billing-address" required minlength="1"><br>
             </div>
 
-                Is my shipping address different than my billing address?
+            <div class="card" id="extended-address-input-placeholder">
+                <!-- new div from javascript is inserted here -->
+            </div>
+
+            <div id="address-difference">
+                <p>Is my shipping address different than my billing address?</p>
                 <input type="radio" required name="same-shipping-address" id="different-shipping-address" value="Yes">
                 <label for="different-shipping-address">Yes</label>
                 <input type="radio" required name="same-shipping-address" id="same-shipping-address" value="No">
                 <label for="same-shipping-address">No</label><br>
-
-            <div class="card" id="extended-address-input-placeholder">
-
             </div>
 
-            <button type="submit">Submit</button>
+            <div id="checkout-submit">
+                <button type="submit">Submit</button>
+            </div>
         </form>
     </div>
 </div>
