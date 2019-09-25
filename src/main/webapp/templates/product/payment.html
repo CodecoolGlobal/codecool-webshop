@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -19,8 +19,8 @@
                 </div><!--#cards end-->
                 <div class="form-check">
                     <label class="form-check-label" for='card'>
-                        <input id="card" class="form-check-input" type="radio" value="" name="payment-option" checked>
-                        Pay $150.00 with credit card
+                        <input id="card" class="form-check-input" type="radio" value="card" name="payment-option" checked>
+                        Pay with credit card
                     </label>
                 </div>
             </div><!--col-xs-5 end-->
@@ -30,8 +30,8 @@
                 </div><!--#cards end-->
                 <div class="form-check">
                     <label class="form-check-label" for='paypal'>
-                        <input id="paypal" class="form-check-input" type="radio" value="" name="payment-option">
-                        Pay $150.00 with PayPal
+                        <input id="paypal" class="form-check-input" type="radio" value="paypal" name="payment-option">
+                        Pay with PayPal
                     </label>
                 </div>
             </div><!--col-xs-5 end-->
@@ -85,7 +85,8 @@
 
         <footer>
             <button class="btn"><a href="/checkout">Back</a></button>
-            <button type="submit" class="btn">Confirm</a></button>
+            <p th:text="'Total amount: ' + ${totalPrice}"></p>
+            <button type="submit" class="btn">Confirm</button>
         </footer>
     </div><!--wrapper end-->
 </form>

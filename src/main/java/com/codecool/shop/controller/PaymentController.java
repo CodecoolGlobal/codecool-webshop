@@ -1,6 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.implementation.Cart;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -28,7 +29,7 @@ public class PaymentController extends HttpServlet {
 
         session.setAttribute("payment details", paymentDetails);
 
-        resp.sendRedirect("/confirmation");
+        resp.sendRedirect("/order_confirmation");
     }
 
     @Override
@@ -36,6 +37,14 @@ public class PaymentController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
+        Cart cart = (Cart) req.getSession().getAttribute("cart");
+        int totalPrice = 0;
+
+        if (cart != null){
+            totalPrice = cart.getTotalPrice();
+        }
+
+        context.setVariable("totalPrice", totalPrice);
         engine.process("product/payment.html", context, resp.getWriter());
     }
 }
