@@ -48,11 +48,11 @@
         <a th:text="${result.key.name} " class="product-category-name">Category Title</a>
 
         <div th:if="${searched == 'supplier'}">
-            <p th:text="${result.value.get(0).getSupplier().getDescription()}" class="description"></p>
+            <h5 th:text="${result.value.get(0).getSupplier().getDescription()}" class="description"></h5>
         </div>
 
         <div th:if="${searched == 'category'}">
-            <p th:text="${result.value.get(0).getProductCategory().getDescription()}" class="description"></p>
+            <h5 th:text="${result.value.get(0).getProductCategory().getDescription()}" class="description"></h5>
         </div>
 
         <div id="products" class="row">

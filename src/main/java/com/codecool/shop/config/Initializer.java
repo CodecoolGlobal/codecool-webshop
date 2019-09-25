@@ -34,13 +34,15 @@ public class Initializer implements ServletContextListener {
         supplierDataStore.add(samsung);
         Supplier tesla = new Supplier("Tesla", "The stuff Elon Musk makes when he's bored");
         supplierDataStore.add(tesla);
+        Supplier stofi = new Supplier("Stofi", "A phenomenon that nobody will ever really understand.");
+        supplierDataStore.add(stofi);
 
         //setting up a new product category
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "Thin, flat mobile computer with a touchscreen display");
         productCategoryDataStore.add(tablet);
 
-        ProductCategory desktop = new ProductCategory("Desktop", "Hardware", "Weird boxes with black magic happening inside");
-        productCategoryDataStore.add(desktop);
+        ProductCategory laptop = new ProductCategory("Laptop", "Hardware", "Weird flat boxes with black magic happening inside");
+        productCategoryDataStore.add(laptop);
 
         ProductCategory smartphone = new ProductCategory("Smartphone", "Hardware", "That thing you use all day");
         productCategoryDataStore.add(smartphone);
@@ -48,7 +50,7 @@ public class Initializer implements ServletContextListener {
         ProductCategory car = new ProductCategory("Car", "Vehicles", "vroom vroom");
         productCategoryDataStore.add(car);
 
-        ProductCategory accessory = new ProductCategory("Accessory", "Whatever", "Accessories");
+        ProductCategory accessory = new ProductCategory("Accessory", "Whatever", "Literally just accessories");
         productCategoryDataStore.add(accessory);
 
         //setting up products and printing it
@@ -63,10 +65,10 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
 
         // product_4
-        productDataStore.add(new Product("Apple Macbook", 1300, "USD", "It's a desktop machine.", desktop, apple));
+        productDataStore.add(new Product("Apple Macbook", 1300, "USD", "It's a desktop machine.", laptop, apple));
 
         // product_5
-        productDataStore.add(new Product("Apfel Macbuch Luft", 1899, "USD", "It's a desktop machine but newer. 50% more power efficiency, also uses 50% more power. Only 46% more expensive", desktop, apple));
+        productDataStore.add(new Product("Apfel Macbuch Luft", 1899, "USD", "It's a desktop machine but newer. 50% more power efficiency, also uses 50% more power. Only 46% more expensive", laptop, apple));
 
         // product_6
         productDataStore.add(new Product("Samsung Galaxy S nagyonsok Pro X 2019.v42", 1000, "USD", "I'm running out of ideas.", smartphone, samsung));
@@ -93,10 +95,24 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Zsiguli", 195, "USD", "Some things just never get old.", car,  amazon));
 
         // product_13
+        productDataStore.add(new Product("Bambuszfogpiszkalo", 0.79f, "USD", "Bamboozled.", accessory, stofi));
 
         // product_14
+        productDataStore.add(new Product("Tompahegyu nyil", 19.99f, "USD", "Used by the Sami to hunt squirrels.", accessory, stofi));
 
-        //TODO stofi as supplier! products: bambuszfogpiszkáló, tompahegyű nyíl, csutkapipa
+        // product_15
+        productDataStore.add(new Product("Mr. Bean's Mini", 60000, "USD", "Tiny, cozy, fit for purpose.", car, amazon));
+
+        // product_16
+        productDataStore.add(new Product("iPhone 11", 1099, "USD", "Now with revolutionary fidget spinner camera.", smartphone, apple));
+
+        // product_17
+        productDataStore.add(new Product("iLight 7s", 85, "USD", "For those who want to fit the world in their pockets.", smartphone, amazon));
+
+        // product_18
+        productDataStore.add(new Product("Dreamcom 10", 1800, "USD", "Fully adjustable. Looks ugly.", laptop, amazon));
+
+        //TODO csutkapipa
     }
 
     @Override
