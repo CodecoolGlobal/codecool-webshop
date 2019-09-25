@@ -39,13 +39,40 @@
     <div class="card">
         <form action="/checkout" method="post">
             <label for="buyer-name-input">Full Name:</label><br>
-            <input id="buyer-name-input" type="text" name="buyer-name"><br>
+            <input id="buyer-name-input" type="text" name="buyer-name" required minlength="1"><br>
 
             <label for="buyer-email-input">Email address:</label><br>
-            <input id="buyer-email-input" type="text" name="buyer-email"><br>
+            <input id="buyer-email-input" type="email" name="buyer-email"><br>
 
             <label for="buyer-phone-number-input">Phone number:</label><br>
-            <input id="buyer-phone-number-input" type="text" name="buyer-phone-number"><br>
+            <input id="buyer-phone-number-input" type="tel" name="buyer-phone-number" required minlength="1"><br>
+
+            Billing Address:<br>
+            <label for="buyer-billing-country-input">Country:</label><br>
+            <input id="buyer-billing-country-input" type="text" name="buyer-billing-country" required minlength="1"><br>
+
+            <label for="buyer-billing-city-input">City:</label><br>
+            <input id="buyer-billing-city-input" type="text" name="buyer-billing-city" required minlength="1"><br>
+
+            <label for="buyer-billing-zip-input">Zip code:</label><br>
+            <input id="buyer-billing-zip-input" type="text" name="buyer-billing-zip" required minlength="4"><br>
+
+            <label for="buyer-billing-address-input">Address:</label><br>
+            <input id="buyer-billing-address-input" type="text" name="buyer-billing-address" required minlength="1"><br>
+
+            Shipping Address:<br>
+            <label for="buyer-shipping-country-input">Country:</label><br>
+            <input id="buyer-shipping-country-input" type="text" name="buyer-shipping-country" required minlength="1"><br>
+
+            <label for="buyer-shipping-city-input">City:</label><br>
+            <input id="buyer-shipping-city-input" type="text" name="buyer-shipping-city" required minlength="1"><br>
+
+            <label for="buyer-shipping-zip-input">Zip code:</label><br>
+            <input id="buyer-shipping-zip-input" type="text" name="buyer-shipping-zip" required minlength="4"><br>
+
+            <label for="buyer-shipping-address-input">Address:</label><br>
+            <input id="buyer-shipping-address-input" type="text" name="buyer-shipping-address" required minlength="1"><br>
+
             <button type="submit">Submit</button>
         </form>
     </div>

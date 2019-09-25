@@ -8,12 +8,16 @@ public class Order {
     private String buyerName;
     private String buyerPhoneNumber;
     private String buyerEmailAddress;
+    private String buyerShippingAddress;
+    private String buyerBillingAddress;
 
-    public Order(List<Product> cart, String buyerName, String buyerPhoneNumber, String buyerEmailAddress) {
+    public Order(List<Product> cart, String buyerName, String buyerPhoneNumber, String buyerEmailAddress, String buyerShippingAddress, String buyerBillingAddress) {
         this.cart = cart;
         this.buyerName = buyerName;
         this.buyerPhoneNumber = buyerPhoneNumber;
         this.buyerEmailAddress = buyerEmailAddress;
+        this.buyerShippingAddress = buyerShippingAddress;
+        this.buyerBillingAddress = buyerBillingAddress;
     }
 
     public List<Product> getCart() {

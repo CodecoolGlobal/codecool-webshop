@@ -39,14 +39,27 @@ public class CheckoutController extends HttpServlet {
         String buyerName = req.getParameter("buyer-name");
         String buyerPhoneNumber = req.getParameter("buyer-phone-number");
         String buyerEmailAddress = req.getParameter("buyer-email");
+        String buyerBillingAddress = formatBuyerAddress("billing", req);
+        String buyerShippingAddress = formatBuyerAddress("shipping", req);
 
         HttpSession session = req.getSession();
 
         List<Product> cart = (List<Product>) session.getAttribute("cart");
 
-        Order order = new Order(cart, buyerName, buyerPhoneNumber, buyerEmailAddress);
+        Order order = new Order(cart, buyerName, buyerPhoneNumber, buyerEmailAddress, buyerShippingAddress, buyerBillingAddress);
         session.setAttribute("order", order);
 
         resp.sendRedirect("/payment");
+    }
+
+    private String formatBuyerAddress(String addressType, HttpServletRequest req) {
+        String buyerAddress;
+
+        buyerAddress = req.getParameter("buyer-" + addressType + "-country");
+        buyerAddress += ", " + req.getParameter("buyer-" + addressType + "-city");
+        buyerAddress += ", " + req.getParameter("buyer-" + addressType + "-zip");
+        buyerAddress += ", " + req.getParameter("buyer-" + addressType + "-address");
+
+        return buyerAddress;
     }
 }
