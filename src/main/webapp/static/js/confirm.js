@@ -1,5 +1,11 @@
 const spinner = document.querySelector("#spinner");
-spinner.addEventListener("click", function(){
-    setTimeout(3000);
-    spinner.classList.add("invisible")
-});
+const modal = document.querySelector(".modalContent");
+
+setTimeout(function() {
+    spinner.classList.toggle("invisible");
+    modal.classList.toggle("invisible");
+
+
+} , 3000);
+
+console.log("teszt uzenet");

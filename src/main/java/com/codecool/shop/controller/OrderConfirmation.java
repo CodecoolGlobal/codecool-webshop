@@ -1,7 +1,8 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.test.Order;
+import com.codecool.shop.model.Order;
+import com.codecool.shop.model.Product;
 import com.google.gson.Gson;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -12,11 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(urlPatterns = {"/order_confirmation"})
 public class OrderConfirmation extends HttpServlet {
@@ -28,9 +31,13 @@ public class OrderConfirmation extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        Order order = new Order();
-        String orderToSave = gson.toJson(order);
-        FileWriter file = new FileWriter("src/main/webapp/static/orders/order" + order.getId() + ".txt");
+        HttpSession session = req.getSession();
+
+        List<Product> product = (List<Product>) session.getAttribute("cart");
+
+
+//        String orderToSave = gson.toJson(order);
+//        FileWriter file = new FileWriter("src/main/webapp/static/orders/order" + order.getBuyerName() + ".txt");
 
 //        String to = "mrbrowngarden@gmail.com";
 //        String from = "webshopnigg4z@gmail.com";
@@ -63,19 +70,20 @@ public class OrderConfirmation extends HttpServlet {
 //        } catch (MessagingException e) {
 //            throw new RuntimeException(e);
 //        }
-
-        try {
-            file.write(orderToSave);
-        } catch (IOException e){
-            e.printStackTrace();
-
-        } finally {
-            file.flush();
-            file.close();
-        }
-
-
+//
+//        try {
+//            file.write(orderToSave);
+//        } catch (IOException e){
+//            e.printStackTrace();
+//
+//        } finally {
+//            file.flush();
+//            file.close();
+//        }
+//
+//
 
         engine.process("product/confirmation.html", context, resp.getWriter());
     }
+
 }
