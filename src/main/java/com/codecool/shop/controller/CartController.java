@@ -18,6 +18,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 @WebServlet(urlPatterns = {"/cart", "/cart-add", "/cart-remove", "/cart-removeall"})
 public class CartController extends HttpServlet {
@@ -93,6 +97,8 @@ public class CartController extends HttpServlet {
         if (cartProductList != null) {
             setupCart(cartProductList, productQuantities);
         }
+
+        session.setAttribute("totalPrice", totalPrice);
 
         context.setVariable("total_price", totalPrice);
         context.setVariable("product_map", productQuantities);
