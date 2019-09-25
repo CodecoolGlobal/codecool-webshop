@@ -98,6 +98,8 @@ public class CartController extends HttpServlet {
             setupCart(cartProductList, productQuantities);
         }
 
+        session.setAttribute("totalPrice", totalPrice);
+
         context.setVariable("total_price", totalPrice);
         context.setVariable("product_map", productQuantities);
         engine.process("product/cart.html", context, resp.getWriter());

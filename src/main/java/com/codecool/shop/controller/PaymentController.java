@@ -2,6 +2,7 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.implementation.Cart;
+import com.codecool.shop.model.Product;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @WebServlet(urlPatterns = {"/payment"})
@@ -37,11 +39,10 @@ public class PaymentController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        Cart cart = (Cart) req.getSession().getAttribute("cart");
         int totalPrice = 0;
 
-        if (cart != null){
-            totalPrice = cart.getTotalPrice();
+        if (req.getSession().getAttribute("totalPrice") != null){
+            totalPrice = (int) req.getSession().getAttribute("totalPrice");
         }
 
         context.setVariable("totalPrice", totalPrice);
