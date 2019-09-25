@@ -27,5 +27,5 @@ extendAddressFormButton.addEventListener('click', function() {
 
 excludeAddressFormButton.addEventListener('click', function() {
     placeHolderDiv.innerHTML = ``;
-    placeHolderDiv.style.display = "inline-hidden";
+    placeHolderDiv.style.display = "none";
 });
