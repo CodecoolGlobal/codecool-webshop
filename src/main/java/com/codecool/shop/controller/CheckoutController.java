@@ -45,7 +45,8 @@ public class CheckoutController extends HttpServlet {
         List<Product> cart = (List<Product>) session.getAttribute("cart");
 
         Order order = new Order(cart, buyerName, buyerPhoneNumber, buyerEmailAddress);
+        session.setAttribute("order", order);
 
-        resp.sendRedirect("/");
+        resp.sendRedirect("/payment");
     }
 }
