@@ -1,0 +1,46 @@
+.product-category-name {
+    font-size: 26px;
+    text-align: center;
+    margin: 5px;
+}
+
+#product-categories {
+    padding: 15px;
+    margin: 10px;
+}
+
+.description {
+    text-align: center;
+}
+
+.category-show-more {
+    text-align: left;
+    font-size: 22px;
+    margin: 5px;
+}
+
+.cart-size {
+    font-size: 22px;
+}
+
+.product-card {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+.card-header {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+/*.card-text-container {*/
+/*    position: relative;*/
+/*    bottom: 30px;*/
+/*}*/
+
+.card-body {
+    flex-grow: 1;
+}
+

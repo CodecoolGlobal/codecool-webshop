@@ -56,6 +56,10 @@ public class CheckoutController extends HttpServlet {
     private String formatBuyerAddress(String addressType, HttpServletRequest req) {
         String buyerAddress;
 
+        if (addressType == "shipping" && req.getParameter("buyer-shipping-city") == null) {
+            return formatBuyerAddress("billing", req);
+        }
+
         buyerAddress = req.getParameter("buyer-" + addressType + "-country");
         buyerAddress += ", " + req.getParameter("buyer-" + addressType + "-city");
         buyerAddress += ", " + req.getParameter("buyer-" + addressType + "-zip");
