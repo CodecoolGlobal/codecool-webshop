@@ -79,7 +79,7 @@ public class ProductController extends HttpServlet {
         else {
             for (ProductCategory category : productCategoryDataStore.getAll()) {
                 results.put(category, category.getFirstThreeProducts());
-                //used instead of category.getFirstThreeProducts(), works only if categery has at least 3 products
+                // used instead of category.getFirstThreeProducts(), works only if categery has at least 3 products!!
             }
         }
         context.setVariable("results", results);
