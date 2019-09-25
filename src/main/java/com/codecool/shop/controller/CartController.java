@@ -72,6 +72,6 @@ public class CartController extends HttpServlet {
                 );*/
 
         context.setVariable("product_map", productQuantities);
-        engine.process("product/cart.html", context, resp.getWriter());
+        engine.process("product/payment.html", context, resp.getWriter());
     }
 }

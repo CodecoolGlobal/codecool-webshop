@@ -114,3 +114,19 @@ footer :nth-child(2){
 .col-xs-5.highlight{
     border:solid 1px blue;
 }
+
+.paypal-payment-holder{
+    display: inline-block;
+}
+
+.paypal-payment-holder-hide{
+    display: none;
+}
+
+.card-payment-holder{
+    display: inline-block;
+}
+
+.card-payment-holder-hide{
+    display: none;
+}
