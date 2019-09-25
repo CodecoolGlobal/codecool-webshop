@@ -34,39 +34,79 @@
     <h1><a href="/">Codecool Shop</a></h1>
 </div>
 
-<div class="container">
+<div class="container" style="text-align: center; margin: auto;" th:if="${product_map.size() > 0}">
 
-    <div class="card" th:if="${product_map.size() != 0}">
+    <h2>Cart content</h2>
+    <br>
+    <h4 th:text="${'Full price (USD): ' + total_price}" style="text-align: right">Total price</h4>
+
+<!--    checkout comes here?-->
+    <button type="button"><a href="/checkout">Checkout</a></button>
+<!--    better on the bottom?-->
+
+    <div class="card">
+
         <table>
             <thead>
                 <tr>
                     <th>Product name</th>
                     <th>Product quantity</th>
-                    <th>Unit price</th>
-                    <th>Sub total</th>
+                    <th>Unit price (USD)</th>
+                    <th>Subtotal (USD)</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="product : ${product_map}">
-                    <td th:text="${product.key.name}"></td>
-                    <td th:text="${product.value}"></td>
-                    <td th:text="${product.key.getDefaultPrice()}"></td>
-                    <td th:with="fullprice=${product.value * product.key.getDefaultPrice()}">
-                        <span th:text="${fullprice} + ' ' + ${product.key.getDefaultCurrency()}"></span>
-                    </td>
-                </tr>
+                <div class="row">
+                    <tr th:each="product : ${product_map}" class="col col-4">
+
+                        <td>
+                            <div class="card" style="margin: 10px;">
+                                <div class="card-header">
+                                    <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${product.key.id} + '.jpg'" alt="" />
+                                    <h4 th:text="${product.key.name}"></h4>
+                                    <p class="card-text" th:text="${product.key.description}">Product description... </p>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td class="col col-4" style="font-size: 32px">
+                            <form action="/cart-remove" method="post" style="display: inline-block">
+                                <input type="hidden" name="product_id" th:value="${product.key.id}">
+                                <input type="submit" value="-"/>
+                            </form>
+
+                            <span th:text="${'  ' + product.value + '  '}" style="white-space: pre"></span>
+
+                            <form action="/cart-add" method="post" style="display: inline-block">
+                                <input type="hidden" name="product_id" th:value="${product.key.id}">
+                                <input type="submit" value="+"/>
+                            </form>
+
+                            <br><br>
+                            <form action="/cart-removeall" method="post">
+                                <input type="hidden" name="product_id" th:value="${product.key.id}">
+                                <input type="submit" value="Remove all"/>
+                            </form>
+                        </td>
+
+                        <td class="col col-2" th:text="${product.key.defaultPrice}"></td>
+
+                        <td class="col col-2" th:with="subtotal=${product.value * product.key.defaultPrice}">
+                            <span th:text="${subtotal}"></span>
+                        </td>
+                    </tr>
+                </div>
             </tbody>
         </table>
     </div>
-
-    <button type="button"><a href="/checkout">Checkout</a></button>
-
-    <div th:if="${product_map.size() == 0}">
-        <p>Suck it</p>
-    </div>
-
 </div>
 
+<div th:if="${product_map.size() == 0}" style="text-align: center">
+    <h2>Cart empty</h2>
+    <br>
+</div>
+
+<br>
 <div th:replace="footer.html :: copy"></div>
 
 </body>
