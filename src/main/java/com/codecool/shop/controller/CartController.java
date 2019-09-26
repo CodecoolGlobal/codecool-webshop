@@ -21,8 +21,6 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
 
@@ -33,41 +31,40 @@ public class CartController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //String url = req.getServletPath();
-        //int productId = Integer.parseInt(req.getParameter("product_id"));
+        String url = req.getServletPath();
+        int productId= getProductIdFromJSON(req, resp);
 
-        Writer out = resp.getWriter();
+        switch(url) {
+            case "/cart-add":
+                addProductToCart(req, resp, productId);
+                break;
+        }
+
+    }
+
+    private int getProductIdFromJSON(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Reader reader = req.getReader();
         Gson gson = new Gson();
 
         String requestBodyJSON = org.apache.commons.io.IOUtils.toString(reader);
+        System.out.println(requestBodyJSON);
+
         Map<String, String> requestBodyMap = gson.fromJson(requestBodyJSON, Map.class);
-        String itemId = requestBodyMap.get("product_id");
+        return Integer.parseInt(requestBodyMap.get("product_id"));
 
-        gson.toJson(itemId, out);
+    }
 
+    private void addProductToCart(HttpServletRequest req, HttpServletResponse resp, int productId) throws IOException {
+        HttpSession session = req.getSession();
+        ProductDao productDataStore = ProductDaoMem.getInstance();
 
-        // !! as it stands, any post request sent here should pass a product_id param !!
+        cart.addProduct(productDataStore.find(productId));
+        session.setAttribute("cart", cart.getProductsInCart());
 
-       /* switch (url) {
-            case "/cart":
-                editCart(req, resp, productId, "add");
-                checkIfFiltered(req, resp);
-                break;
-            case "/cart-add":
-                editCart(req, resp, productId, "add");
-                resp.sendRedirect("/cart");
-                break;
-            case "/cart-remove":
-                editCart(req, resp, productId, "remove");
-                resp.sendRedirect("/cart");
-                break;
-            case "/cart-removeall":
-                editCart(req, resp, productId, "removeall");
-                resp.sendRedirect("/cart");
-                break;
-        }
-    */
+        Writer out = resp.getWriter();
+        Gson gson = new Gson();
+
+        gson.toJson(productId, out);
     }
 
     private void checkIfFiltered(HttpServletRequest req, HttpServletResponse resp) throws IOException {
