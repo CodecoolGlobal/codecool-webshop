@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-    private List<Product> cart = new ArrayList<>();
+    private transient List<Product> cart = new ArrayList<>();
     private String buyerName;
     private String buyerPhoneNumber;
     private String buyerEmailAddress;
@@ -35,4 +35,22 @@ public class Order {
     public String getBuyerEmailAddress() {
         return buyerEmailAddress;
     }
+
+    public String getBuyerShippingAddress() {
+        return buyerShippingAddress;
+    }
+
+    public String getBuyerBillingAddress() {
+        return buyerBillingAddress;
+    }
+    private void clear(){
+        cart.clear();
+        this.buyerName = "";
+        this.buyerPhoneNumber = "";
+        this.buyerBillingAddress = "";
+        this.buyerEmailAddress = "";
+        this.buyerShippingAddress = "";
+    }
+
+
 }

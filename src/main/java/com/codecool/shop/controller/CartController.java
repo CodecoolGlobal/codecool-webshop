@@ -74,7 +74,7 @@ public class CartController extends HttpServlet {
 
     private int getProductIdFromJSON(Reader reader, Gson gson) throws IOException {
         String requestBodyJSON = org.apache.commons.io.IOUtils.toString(reader);
-        System.out.println(requestBodyJSON);
+//        System.out.println(requestBodyJSON);
 
         Map requestBodyMap = gson.fromJson(requestBodyJSON, Map.class);
         return Integer.parseInt((String) requestBodyMap.get("product_id"));
