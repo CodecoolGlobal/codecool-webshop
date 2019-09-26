@@ -31,16 +31,16 @@
 </head>
 
 <body>
-
-<div class="jumbotron text-center">
-    <h1><a href="/">Codecool Shop</a></h1>
-</div>
-
 <div class="container">
-    <div class="container row">
-        <form action="/checkout" method="post">
-            <div class="card">
-                <h3>Personal information:</h3>
+    <div class="jumbotron text-center">
+        <h1><a href="/">Codecool Shop</a></h1>
+    </div>
+
+    <div class="container">
+        <div class="container row">
+            <form action="/checkout" method="post">
+                <div class="card">
+                    <h3>Personal information:</h3>
 
                     <label for="buyer-name-input">Full Name:</label><br>
                     <input id="buyer-name-input" type="text" name="buyer-name" required minlength="1"><br>
@@ -50,10 +50,10 @@
 
                     <label for="buyer-phone-number-input">Phone number:</label><br>
                     <input id="buyer-phone-number-input" type="tel" name="buyer-phone-number" required minlength="1"><br>
-            </div>
+                </div>
 
-            <div class="card">
-                <h3>Billing Address:</h3>
+                <div class="card">
+                    <h3>Billing Address:</h3>
 
                     <label for="buyer-billing-country-input">Country:</label><br>
                     <input id="buyer-billing-country-input" type="text" name="buyer-billing-country" required minlength="1"><br>
@@ -66,26 +66,27 @@
 
                     <label for="buyer-billing-address-input">Address:</label><br>
                     <input id="buyer-billing-address-input" type="text" name="buyer-billing-address" required minlength="1"><br>
-            </div>
+                </div>
 
-            <div class="card" id="extended-address-input-placeholder">
-                <!-- new div from javascript is inserted here -->
-            </div>
+                <div class="card" id="extended-address-input-placeholder">
+                    <!-- new div from javascript is inserted here -->
+                </div>
 
-            <div id="address-difference">
-                <p>Is my shipping address different than my billing address?</p>
-                <input type="radio" required name="same-shipping-address" id="different-shipping-address" value="Yes">
-                <label for="different-shipping-address">Yes</label>
-                <input type="radio" required name="same-shipping-address" id="same-shipping-address" value="No">
-                <label for="same-shipping-address">No</label><br>
-            </div>
+                <div id="address-difference">
+                    <p>Is my shipping address different than my billing address?</p>
+                    <input type="radio" required name="same-shipping-address" id="different-shipping-address" value="Yes">
+                    <label for="different-shipping-address">Yes</label>
+                    <input type="radio" required name="same-shipping-address" id="same-shipping-address" value="No">
+                    <label for="same-shipping-address">No</label><br>
+                </div>
 
-            <div id="checkout-submit">
-                <button type="submit">Submit</button>
-            </div>
-        </form>
+                <div id="checkout-submit">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
+</div>
 </body>
 </html>
