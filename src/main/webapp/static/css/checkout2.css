@@ -1,4 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,600,400italic);
+@import "compass/css3";
+
 * {
     margin: 0;
     padding: 0;
@@ -30,19 +32,19 @@ body {
     position: relative;
 }
 
-.wrapper-container{
+.input-tile-container{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.wrapper{
+.input-tile{
     display: inline-block;
     margin-left: 5px;
     margin-right: 5px;
 }
 
-.wrapper.personal-info{
+.input-tile.personal-info{
     position: relative;
     top: 35px;
 }
@@ -166,3 +168,14 @@ fieldset {
 :-ms-input-placeholder {
     color: #888;
 }
+
+.form-question-text{
+    font-size: 15px;
+}
+
+
+
+
+
+
+

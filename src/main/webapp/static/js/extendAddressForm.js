@@ -1,10 +1,12 @@
-const extendAddressFormButton = document.querySelector('#different-shipping-address');
-const excludeAddressFormButton = document.querySelector('#same-shipping-address');
-const placeHolderDiv = document.querySelector('#extended-address-input-placeholder');
+//const extendAddressFormButton = document.querySelector('#different-shipping-address');
+//const excludeAddressFormButton = document.querySelector('#same-shipping-address');
+const placeHolderDiv = document.querySelector('#extended-form-placeholder');
+const formExtensionSwitch = document.querySelector('#form-extension-switch');
 
 
-extendAddressFormButton.addEventListener('click', function() {
+formExtensionSwitch.addEventListener('click', function() {
 
+    console.log('tits');
     let extendedForm = `
                     <h3>Shipping Address:</h3>
     
@@ -22,10 +24,12 @@ extendAddressFormButton.addEventListener('click', function() {
         `;
 
     placeHolderDiv.innerHTML = extendedForm;
-    placeHolderDiv.style.display = "inline-block";
+    //placeHolderDiv.style.display = "inline-block";
 });
 
 excludeAddressFormButton.addEventListener('click', function() {
     placeHolderDiv.innerHTML = ``;
-    placeHolderDiv.style.display = "none";
+    //placeHolderDiv.style.display = "none";
 });
+
+
