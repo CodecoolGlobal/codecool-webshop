@@ -31,68 +31,51 @@ public class CartController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
         String url = req.getServletPath();
-        int productId= getProductIdFromJSON(req, resp);
+
+        Reader reader = req.getReader();
+        Gson gson = new Gson();
+
+        int productId= getProductIdFromJSON(reader, gson);
 
         switch(url) {
             case "/cart-add":
-                addProductToCart(req, resp, productId);
+                addProductToCart(resp, productId, session, gson);
                 break;
+            case "/cart-remove":
+                removeProductFromCart(resp, productId, session, gson);
         }
 
     }
 
-    private int getProductIdFromJSON(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        Reader reader = req.getReader();
-        Gson gson = new Gson();
-
-        String requestBodyJSON = org.apache.commons.io.IOUtils.toString(reader);
-        System.out.println(requestBodyJSON);
-
-        Map<String, String> requestBodyMap = gson.fromJson(requestBodyJSON, Map.class);
-        return Integer.parseInt(requestBodyMap.get("product_id"));
-
-    }
-
-    private void addProductToCart(HttpServletRequest req, HttpServletResponse resp, int productId) throws IOException {
-        HttpSession session = req.getSession();
+    private void removeProductFromCart( HttpServletResponse resp, int productId, HttpSession session, Gson gson) throws ServletException, IOException {
         ProductDao productDataStore = ProductDaoMem.getInstance();
 
         cart.addProduct(productDataStore.find(productId));
         session.setAttribute("cart", cart.getProductsInCart());
 
         Writer out = resp.getWriter();
-        Gson gson = new Gson();
 
         gson.toJson(productId, out);
     }
 
-    private void checkIfFiltered(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String url = req.getHeader("referer");
+    private int getProductIdFromJSON(Reader reader, Gson gson) throws IOException {
+        String requestBodyJSON = org.apache.commons.io.IOUtils.toString(reader);
+        System.out.println(requestBodyJSON);
 
-        if (url.contains("category")) resp.sendRedirect(url);
-        else if (url.contains("supplier")) resp.sendRedirect(url);
-        else resp.sendRedirect("/");
+        Map requestBodyMap = gson.fromJson(requestBodyJSON, Map.class);
+        return Integer.parseInt((String) requestBodyMap.get("product_id"));
     }
 
-    private void editCart(HttpServletRequest req, HttpServletResponse resp, int productId, String action) throws IOException {
+    private void addProductToCart(HttpServletResponse resp, int productId, HttpSession session, Gson gson) throws IOException {
         ProductDao productDataStore = ProductDaoMem.getInstance();
-        Product product = productDataStore.find(productId);
-        HttpSession session = req.getSession();
 
-        switch (action) {
-            case "add":
-                cart.addProduct(product);
-                break;
-            case "remove":
-                cart.removeProduct(product);
-                break;
-            case "removeall":
-                cart.removeAllProductInstances(product);
-                break;
-        }
-
+        cart.addProduct(productDataStore.find(productId));
         session.setAttribute("cart", cart.getProductsInCart());
+
+        Writer out = resp.getWriter();
+        gson.toJson(productId, out);
     }
 
     @Override
@@ -127,5 +110,4 @@ public class CartController extends HttpServlet {
             }
         }
     }
-
 }
