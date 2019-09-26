@@ -5,6 +5,7 @@ import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.implementation.Cart;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Product;
+import com.google.gson.Gson;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,12 +33,23 @@ public class CartController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String url = req.getServletPath();
-        int productId = Integer.parseInt(req.getParameter("product_id"));
+        //String url = req.getServletPath();
+        //int productId = Integer.parseInt(req.getParameter("product_id"));
+
+        Writer out = resp.getWriter();
+        Reader reader = req.getReader();
+        Gson gson = new Gson();
+
+        String requestBodyJSON = org.apache.commons.io.IOUtils.toString(reader);
+        Map<String, String> requestBodyMap = gson.fromJson(requestBodyJSON, Map.class);
+        String itemId = requestBodyMap.get("product_id");
+
+        gson.toJson(itemId, out);
+
 
         // !! as it stands, any post request sent here should pass a product_id param !!
 
-        switch (url) {
+       /* switch (url) {
             case "/cart":
                 editCart(req, resp, productId, "add");
                 checkIfFiltered(req, resp);
@@ -53,6 +67,7 @@ public class CartController extends HttpServlet {
                 resp.sendRedirect("/cart");
                 break;
         }
+    */
     }
 
     private void checkIfFiltered(HttpServletRequest req, HttpServletResponse resp) throws IOException {
