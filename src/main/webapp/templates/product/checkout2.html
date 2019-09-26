@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Codecool" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Checkout</title>
+
+    <!-- Bootstrap components -->
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!--Latest compiled and minified Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- End of Bootstrap components -->
+
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/checkout2.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/switch_button.css">
+
+    <!-- Switch button resources -->
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+    <!-- Form extension JS -->
+    <script src="/static/js/extendAddressForm.js" defer></script>
+
+</head>
+<body>
+<div class="container">
+    <form id="contact" action="" method="post">
+        <h3 class="form-title">Personal Information</h3>
+
+        <div class="input-tile-container">
+            <div class="input-tile personal-info section">
+                <fieldset>
+                    <input name="buyer-name" placeholder="Your name" type="text" tabindex="1" required autofocus>
+                </fieldset>
+                <fieldset>
+                    <input name="buyer-email" placeholder="Your Email Address" type="email" tabindex="2" required>
+                </fieldset>
+                <fieldset>
+                    <input name="buyer-phone-number" placeholder="Your Phone Number" type="tel" tabindex="3" required>
+                </fieldset>
+            </div>
+            <div class="input-tile section">
+                <h4>Billing Address</h4>
+                <fieldset>
+                    <input name="buyer-billing-country" placeholder="Your country" type="text" tabindex="1" required autofocus>
+                </fieldset>
+                <fieldset>
+                    <input name="buyer-billing-city" placeholder="Your city" type="text" tabindex="2" required>
+                </fieldset>
+                <fieldset>
+                    <input name="buyer-billing-zip" placeholder="Your zip code" type="text" tabindex="3" required minlength="4">
+                </fieldset>
+                <fieldset>
+                    <input name="buyer-billing-address" placeholder="Your address" type="text" tabindex="4" required>
+                </fieldset>
+                <p class="form-question-text"></p>
+
+                <!---   Toggle switch    --->
+
+                <label id="form-extension-switch" class="checkbox">
+                    Shipping address is the same
+                    <style>
+                        .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
+                        .toggle.ios .toggle-handle { border-radius: 20px; }
+                    </style>
+                    <input id="toggle-button"
+                           type="checkbox"
+                           checked data-toggle="toggle"
+                           data-on="Yes" data-off="No"
+                           data-style="ios"
+                           data-onstyle="primary" data-offstyle="success"
+                           data-width="30" data-height="20">
+                </label>
+            </div>
+            <div id="extended-form-placeholder"
+                 class="input-tile section collapsible"
+                 style="width: 0px;"
+                    data-collapsed=true>
+                <h4>Shipping address</h4>
+                <fieldset>
+                    <input name="buyer-shipping-country" placeholder="Your shipping country" type="text" tabindex="1" required autofocus>
+                </fieldset>
+                <fieldset>
+                    <input name="buyer-shipping-city" placeholder="Your shipping city" type="text" tabindex="2" required>
+                </fieldset>
+                <fieldset>
+                    <input name="buyer-shipping-zip" placeholder="Your shipping zip code" type="text" tabindex="3" required minlength="4">
+                </fieldset>
+                <fieldset>
+                    <input name="buyer-shipping-address" placeholder="Your shipping address" type="text" tabindex="4" required>
+                </fieldset>
+            </div>
+        </div>
+        <fieldset>
+            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>
