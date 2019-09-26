@@ -13,7 +13,7 @@ function changeCartSize() {
     cartSize.textContent++;
 }
 
-function handleFormData(button) {
+function handleButtonData(button) {
     let productId = button.dataset.productId;
 
     button.addEventListener("click", function () {
@@ -27,7 +27,7 @@ function addListenersToCartButtons() {
 
     for (let product of products) {
         let button = product.querySelector(".add-to-cart");
-        handleFormData(button);
+        handleButtonData(button);
     }
 }
 

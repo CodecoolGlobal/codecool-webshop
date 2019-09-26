@@ -52,11 +52,10 @@ public class CartController extends HttpServlet {
     private void removeProductFromCart( HttpServletResponse resp, int productId, HttpSession session, Gson gson) throws ServletException, IOException {
         ProductDao productDataStore = ProductDaoMem.getInstance();
 
-        cart.addProduct(productDataStore.find(productId));
+        cart.removeProduct(productDataStore.find(productId));
         session.setAttribute("cart", cart.getProductsInCart());
 
         Writer out = resp.getWriter();
-
         gson.toJson(productId, out);
     }
 
