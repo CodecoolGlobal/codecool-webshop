@@ -20,7 +20,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
             integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
-    <script src="/static/js/extendAddressForm.js" defer></script>
     <!-- Latest compiled and minified CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -44,7 +43,7 @@
         <h3 class="form-title">Personal Information</h3>
 
         <div class="input-tile-container">
-            <div class="input-tile personal-info">
+            <div class="input-tile personal-info section">
                 <fieldset>
                     <input name="buyer-name" placeholder="Your name" type="text" tabindex="1" required autofocus>
                 </fieldset>
@@ -55,7 +54,7 @@
                     <input name="buyer-phone-number" placeholder="Your Phone Number" type="tel" tabindex="3" required>
                 </fieldset>
             </div>
-            <div class="input-tile">
+            <div class="input-tile section">
                 <h4>Billing Address</h4>
                 <fieldset>
                     <input name="buyer-billing-country" placeholder="Your country" type="text" tabindex="1" required autofocus>
@@ -72,22 +71,33 @@
                 <p class="form-question-text"></p>
 
                 <!---   Toggle switch    --->
+                <!--
                 <label id="form-extension-switch" class="checkbox">
                     Shipping address is the same
                     <style>
                         .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
                         .toggle.ios .toggle-handle { border-radius: 20px; }
                     </style>
-                    <input
+                    <input id="toggle-button"
                            type="checkbox"
                            checked data-toggle="toggle"
                            data-on="Yes" data-off="No"
                            data-style="ios"
                            data-onstyle="primary" data-offstyle="success"
                            data-width="30" data-height="20">
-                </label>
+                </label>-->
+                <!--<label class="switch" id="toggle-button">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>-->
+
+
+                <button type="button" id="toggle-button"></button>
             </div>
-            <div id="extended-form-placeholder" class="input-tile invisible">
+            <div id="extended-form-placeholder"
+                 class="input-tile section collapsible"
+                 style="width: 0px;"
+                    data-collapsed=true>
                 <h4>Shipping address</h4>
                 <fieldset>
                     <input name="buyer-shipping-country" placeholder="Your shipping country" type="text" tabindex="1" required autofocus>
