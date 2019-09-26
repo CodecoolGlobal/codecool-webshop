@@ -32,30 +32,43 @@
 <body>
 <div class="container">
     <form id="contact" action="" method="post">
-    <!--<form id="contact" action="" method="post">-->
-        <h3>Colorlib Contact Form</h3>
-        <h4>Contact us for custom quote</h4>
-        <fieldset>
-            <input placeholder="Your name" type="text" tabindex="1" required autofocus>
-        </fieldset>
-        <fieldset>
-            <input placeholder="Your Email Address" type="email" tabindex="2" required>
-        </fieldset>
-        <fieldset>
-            <input placeholder="Your Phone Number (optional)" type="tel" tabindex="3" required>
-        </fieldset>
-        <fieldset>
-            <input placeholder="Your Web Site (optional)" type="url" tabindex="4" required>
-        </fieldset>
-        <fieldset>
-            <textarea placeholder="Type your message here...." tabindex="5" required></textarea>
-        </fieldset>
+        <h3 class="form-title">Personal Information</h3>
+
+        <div class="wrapper-container">
+            <div class="wrapper personal-info">
+                <fieldset>
+                    <input name="buyer-name" placeholder="Your name" type="text" tabindex="1" required autofocus>
+                </fieldset>
+                <fieldset>
+                    <input name="buyer-email" placeholder="Your Email Address" type="email" tabindex="2" required>
+                </fieldset>
+                <fieldset>
+                    <input name="buyer-phone-number" placeholder="Your Phone Number (optional)" type="tel" tabindex="3" required>
+                </fieldset>
+            </div>
+            <div class="wrapper">
+                <h4>Contact us for custom quote</h4>
+                <fieldset>
+                    <input placeholder="Your name" type="text" tabindex="1" required autofocus>
+                </fieldset>
+                <fieldset>
+                    <input placeholder="Your Email Address" type="email" tabindex="2" required>
+                </fieldset>
+                <fieldset>
+                    <input placeholder="Your Phone Number (optional)" type="tel" tabindex="3" required>
+                </fieldset>
+                <fieldset>
+                    <input placeholder="Your Web Site (optional)" type="url" tabindex="4" required>
+                </fieldset>
+                <fieldset>
+                    <textarea placeholder="Type your message here...." tabindex="5" required></textarea>
+                </fieldset>
+            </div>
+        </div>
         <fieldset>
             <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
         </fieldset>
-        <p class="copyright">Designed by <a href="https://colorlib.com" target="_blank" title="Colorlib">Colorlib</a></p>
     </form>
-    <!--</form>-->
 </div>
 </body>
 </html>

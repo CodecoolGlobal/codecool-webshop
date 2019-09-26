@@ -21,18 +21,34 @@ body {
     background: #4CAF50;
 }
 
-.wrapper{
-    display: flex;
-    justify-content: center;
-}
-
 .container {
     display: flex;
     justify-content: center;
-    max-width: 400px;
+    /*max-width: auto;*/
     width: 100%;
     margin: 0 auto;
     position: relative;
+}
+
+.wrapper-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.wrapper{
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.wrapper.personal-info{
+    position: relative;
+    top: 35px;
+}
+
+.form-title{
+    text-align: center;
 }
 
 #contact input[type="text"],
