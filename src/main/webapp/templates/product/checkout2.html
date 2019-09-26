@@ -39,7 +39,7 @@
 </head>
 <body>
 <div class="container">
-    <form id="contact" action="" method="post">
+    <form id="contact" action="/checkout" method="post">
         <h3 class="form-title">Personal Information</h3>
 
         <div class="input-tile-container">
@@ -93,16 +93,16 @@
                     data-collapsed=true>
                 <h4>Shipping address</h4>
                 <fieldset>
-                    <input name="buyer-shipping-country" placeholder="Your shipping country" type="text" tabindex="1" required autofocus>
+                    <input name="buyer-shipping-country" placeholder="Your shipping country" type="text" tabindex="1" autofocus>
                 </fieldset>
                 <fieldset>
-                    <input name="buyer-shipping-city" placeholder="Your shipping city" type="text" tabindex="2" required>
+                    <input name="buyer-shipping-city" placeholder="Your shipping city" type="text" tabindex="2" >
                 </fieldset>
                 <fieldset>
-                    <input name="buyer-shipping-zip" placeholder="Your shipping zip code" type="text" tabindex="3" required minlength="4">
+                    <input name="buyer-shipping-zip" placeholder="Your shipping zip code" type="text" tabindex="3">
                 </fieldset>
                 <fieldset>
-                    <input name="buyer-shipping-address" placeholder="Your shipping address" type="text" tabindex="4" required>
+                    <input name="buyer-shipping-address" placeholder="Your shipping address" type="text" tabindex="4">
                 </fieldset>
             </div>
         </div>
