@@ -21,12 +21,23 @@ function removeFromCartApi(productId, quantity) {
     });
 }
 
+function removeAllFromCartApi(productId, product, quantity) {
+    let data = {
+        "product_id": productId
+    };
+
+    api_post("/cart-remove-all", data, function() {
+        quantity.textContent = 0;
+        product.parentNode.removeChild(product);
+    });
+}
+
 function raiseQuantity(quantity) {
     quantity.textContent++;
 }
 
 function decreaseQuantity(quantity) {
-    quantity.textContent--;
+    if (quantity.textContent > 0) quantity.textContent--;
 }
 
 
@@ -40,21 +51,34 @@ function removeFromCart(removeButton, quantity) {
     removeFromCartApi(productId, quantity)
 }
 
+function removeAllFromCart(removeAllButton, product, quantity) {
+    let productId = removeAllButton.dataset.productId;
+    removeAllFromCartApi(productId, product, quantity)
+}
+
 
 function addListenersToCartButtons() {
-    const quantityModifiers = document.querySelectorAll(".quantity-modifier");
+    const products = document.querySelectorAll(".product");
 
-    for (let modifier of quantityModifiers) {
-        let removeButton = modifier.querySelector(".remove-from-cart");
-        let quantity = modifier.querySelector(".quantity");
-        let addButton = modifier.querySelector(".add-to-cart");
+    for (let product of products) {
+        let quantityModifier = product.querySelector(".quantity-modifier");
+        let currentQuantity = quantityModifier.querySelector(".quantity");
+
+        let removeButton = quantityModifier.querySelector(".remove-from-cart");
+
+        let addButton = quantityModifier.querySelector(".add-to-cart");
+        let removeAllButton = quantityModifier.querySelector(".remove-all-from-cart");
 
         addButton.addEventListener("click", function() {
-            addToCart(addButton, quantity)
+            addToCart(addButton, currentQuantity)
         });
 
         removeButton.addEventListener("click", function() {
-            removeFromCart(removeButton, quantity);
+            removeFromCart(removeButton, currentQuantity);
+        });
+
+        removeAllButton.addEventListener("click", function() {
+            removeAllFromCart(removeAllButton, product, currentQuantity)
         })
     }
 }

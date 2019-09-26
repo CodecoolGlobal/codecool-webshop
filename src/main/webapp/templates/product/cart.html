@@ -64,7 +64,7 @@
             </thead>
             <tbody>
                 <div class="row">
-                    <tr th:each="product : ${product_map}" class="col col-4 products">
+                    <tr th:each="product : ${product_map}" class="col col-4 product">
 
                         <td>
                             <div class="card product-card">
@@ -84,10 +84,7 @@
                             <button class="add-to-cart btn btn-outline-success" th:attr="data-product-id=${product.key.id}"> + </button>
 
                             <br><br>
-                            <form action="/cart-removeall" method="post">
-                                <input type="hidden" name="product_id" th:value="${product.key.id}">
-                                <input type="submit" value="Remove all"/>
-                            </form>
+                            <button class="remove-all-from-cart btn btn-outline-danger" th:attr="data-product-id=${product.key.id}"> Remove All </button>
                         </td>
 
                         <td class="col col-2" th:text="${product.key.defaultPrice}"></td>

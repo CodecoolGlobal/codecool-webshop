@@ -24,7 +24,7 @@ import java.util.Map;
 
 import static java.util.stream.Collectors.groupingBy;
 
-@WebServlet(urlPatterns = {"/cart", "/cart-add", "/cart-remove", "/cart-removeall"})
+@WebServlet(urlPatterns = {"/cart", "/cart-add", "/cart-remove", "/cart-remove-all"})
 public class CartController extends HttpServlet {
 
     private Cart cart = new Cart();
@@ -45,8 +45,21 @@ public class CartController extends HttpServlet {
                 break;
             case "/cart-remove":
                 removeProductFromCart(resp, productId, session, gson);
+            case "/cart-remove-all":
+                removeAllProductInstancesFromCart(resp, productId, session, gson);
+                break;
         }
 
+    }
+
+    private void removeAllProductInstancesFromCart(HttpServletResponse resp, int productId, HttpSession session, Gson gson) throws ServletException, IOException {
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+
+        cart.removeAllProductInstances(productDataStore.find(productId));
+        session.setAttribute("cart", cart.getProductsInCart());
+
+        Writer out = resp.getWriter();
+        gson.toJson(productId, out);
     }
 
     private void removeProductFromCart( HttpServletResponse resp, int productId, HttpSession session, Gson gson) throws ServletException, IOException {
