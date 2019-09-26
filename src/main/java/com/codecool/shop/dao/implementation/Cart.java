@@ -28,8 +28,8 @@ public class Cart {
         }
     }
 
-    public int getTotalPrice() {
-        int totalPrice = 0;
+    public double getTotalPrice() {
+        double totalPrice = 0;
 
         //TODO should be changed to double and handle rounding on website
 

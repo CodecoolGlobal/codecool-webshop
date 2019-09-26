@@ -92,11 +92,13 @@ public class CartController extends HttpServlet {
 
         List<Product> cartProductList = (List<Product>) session.getAttribute("cart");
         Map<Product, Integer> productQuantities = new HashMap<>();
-        int totalPrice = cart.getTotalPrice();
+        double totalPrice = cart.getTotalPrice();
 
         if (cartProductList != null) {
             setupCart(cartProductList, productQuantities);
         }
+
+        session.setAttribute("totalPrice", totalPrice);
 
         context.setVariable("total_price", totalPrice);
         context.setVariable("product_map", productQuantities);

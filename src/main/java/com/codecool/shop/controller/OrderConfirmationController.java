@@ -30,11 +30,10 @@ public class OrderConfirmationController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-//
-//        HttpSession session = req.getSession();
-//        Order order = (Order) session.getAttribute("order");
-//        orderConfirmation(order, USERNAME, PASSWORD, FROM);
-//        gsonWriter(order);
+        HttpSession session = req.getSession();
+        Order order = (Order) session.getAttribute("order");
+        orderConfirmation(order, USERNAME, PASSWORD, FROM);
+        gsonWriter(order);
         engine.process("product/confirmation.html", context, resp.getWriter());
     }
 
@@ -93,6 +92,7 @@ public class OrderConfirmationController extends HttpServlet {
             file.flush();
             file.close();
         }
+        order.getCart().clear();
     }
 
 

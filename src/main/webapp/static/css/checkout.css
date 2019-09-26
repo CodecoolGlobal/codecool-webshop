@@ -1,0 +1,27 @@
+.container {
+    text-align: center;
+}
+
+.container .card {
+    display: inline-block;
+    margin: 20px;
+    padding: 15px;
+    text-align: left;
+}
+
+#address-difference {
+    font-size: 22px;
+    position: absolute;
+    left: 430px;
+}
+
+#checkout-submit {
+    font-size: 22px;
+    position: absolute;
+    bottom: 250px;
+    left: 666px;
+}
+
+#extended-address-input-placeholder {
+    display: none;
+}
