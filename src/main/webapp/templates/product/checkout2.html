@@ -61,13 +61,13 @@
                     <input name="buyer-billing-country" placeholder="Your country" type="text" tabindex="1" required autofocus>
                 </fieldset>
                 <fieldset>
-                    <input name="buyer-billing-city" placeholder="Your city" type="email" tabindex="2" required>
+                    <input name="buyer-billing-city" placeholder="Your city" type="text" tabindex="2" required>
                 </fieldset>
                 <fieldset>
                     <input name="buyer-billing-zip" placeholder="Your zip code" type="text" tabindex="3" required minlength="4">
                 </fieldset>
                 <fieldset>
-                    <input name="buyer-billing-address" placeholder="Your address" type="url" tabindex="4" required>
+                    <input name="buyer-billing-address" placeholder="Your address" type="text" tabindex="4" required>
                 </fieldset>
                 <p class="form-question-text"></p>
 
@@ -87,8 +87,20 @@
                            data-width="30" data-height="20">
                 </label>
             </div>
-            <div id="extended-form-placeholder" class="input-tile">
-
+            <div id="extended-form-placeholder" class="input-tile invisible">
+                <h4>Shipping address</h4>
+                <fieldset>
+                    <input name="buyer-shipping-country" placeholder="Your shipping country" type="text" tabindex="1" required autofocus>
+                </fieldset>
+                <fieldset>
+                    <input name="buyer-shipping-city" placeholder="Your shipping city" type="text" tabindex="2" required>
+                </fieldset>
+                <fieldset>
+                    <input name="buyer-shipping-zip" placeholder="Your shipping zip code" type="text" tabindex="3" required minlength="4">
+                </fieldset>
+                <fieldset>
+                    <input name="buyer-shipping-address" placeholder="Your shipping address" type="text" tabindex="4" required>
+                </fieldset>
             </div>
         </div>
         <fieldset>

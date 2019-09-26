@@ -6,7 +6,7 @@ const formExtensionSwitch = document.querySelector('#form-extension-switch');
 
 formExtensionSwitch.addEventListener('click', function() {
 
-    console.log('tits');
+    /*console.log('tits');
     let extendedForm = `
                     <h3>Shipping Address:</h3>
     
@@ -24,7 +24,15 @@ formExtensionSwitch.addEventListener('click', function() {
         `;
 
     placeHolderDiv.innerHTML = extendedForm;
-    //placeHolderDiv.style.display = "inline-block";
+    //placeHolderDiv.style.display = "inline-block";*/
+    if (placeHolderDiv.classList.contains('invisible')) {
+        placeHolderDiv.classList.remove('invisible');
+        placeHolderDiv.classList.add('visible');
+    } else {
+        placeHolderDiv.classList.remove('visible');
+        placeHolderDiv.classList.add('invisible');
+    }
+
 });
 
 excludeAddressFormButton.addEventListener('click', function() {
