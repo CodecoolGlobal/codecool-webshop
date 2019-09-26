@@ -1,9 +1,16 @@
 function handleClick(productId) {
-    // add product to cart in ajax
-    api_post("/cart-add", productId, function(){
-        console.log(productId);
-    });
 
+    let data = {
+        "product_id": productId
+    };
+
+    api_post("/cart-add", data, changeCartSize);
+
+}
+
+function changeCartSize() {
+    let cartSize = document.querySelector("#cart-size");
+    cartSize.textContent++;
 }
 
 function handleFormData(button) {
@@ -41,6 +48,7 @@ function api_get(url, callback) {
 function api_post(url, data, callback) {
     // it is not called from outside
     // sends the data to the API, and calls callback function
+
     fetch(url, {
         method: 'POST',
         credentials: "same-origin",

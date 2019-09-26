@@ -39,8 +39,11 @@
 
 <div class="container">
 
-    <div class="cart-size">
-        <p th:text="${cart_size} + ' items in Cart'"></p>
+    <div class="cart-size-div">
+        <span th:text="${cartSize ? cartSize : 0}" id="cart-size"></span>
+        <span> items in Cart </span>
+
+        <br>
         <a href="/cart">Show Cart</a>
         <span>&#128722;</span>
     </div>
@@ -75,7 +78,7 @@
                             <p class="lead" th:text="${product.price}">100 USD</p>
                         </div>
                         <div class="card-text">
-                            <button class="add-to-cart" th:attr="data-product-id=${product.id}">Add to cart</button>
+                            <button class="add-to-cart btn btn-success" th:attr="data-product-id=${product.id}">Add to cart</button>
                         </div>
                     </div>
                 </div>
