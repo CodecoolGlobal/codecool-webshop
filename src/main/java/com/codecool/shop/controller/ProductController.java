@@ -54,9 +54,7 @@ public class ProductController extends HttpServlet {
 
         if (session.getAttribute("cart") != null) {
             int cartSize = ((List<Product>) session.getAttribute("cart")).size();
-            context.setVariable("cart_size", cartSize);
-        } else {
-            context.setVariable("cart_size", 0);
+            context.setVariable("cartSize", cartSize);
         }
 
 

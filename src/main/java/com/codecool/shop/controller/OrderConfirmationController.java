@@ -35,6 +35,7 @@ public class OrderConfirmationController extends HttpServlet {
         Order order = (Order) session.getAttribute("order");
         orderConfirmation(order, USERNAME, PASSWORD, FROM);
         gsonWriter(order);
+        session.invalidate();
     }
 
     private void orderConfirmation(Order order, String username, String password, String from) {

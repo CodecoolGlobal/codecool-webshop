@@ -11,4 +11,3 @@ for (let radioButton of radioButtons) {
         }
     });
 }
-
