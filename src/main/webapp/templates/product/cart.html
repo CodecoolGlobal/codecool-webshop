@@ -41,7 +41,7 @@
 
     <h2>Cart content</h2>
     <br>
-    <h4 id="total-price" th:text="${'Full price (USD): ' + total_price}">Total price</h4>
+    <h4 id="total-price">0</h4> <span> (USD)</span>
 
 <!--    checkout comes here?-->
     <div id="checkout">
@@ -87,11 +87,9 @@
                             <button class="remove-all-from-cart btn btn-outline-danger" th:attr="data-product-id=${product.key.id}"> Remove All </button>
                         </td>
 
-                        <td class="col col-2" th:text="${product.key.defaultPrice}"></td>
+                        <td class="col col-2 product-price" th:text="${product.key.defaultPrice}"></td>
 
-                        <td class="col col-2" th:with="subtotal=${product.value * product.key.defaultPrice}">
-                            <span th:text="${subtotal}"></span>
-                        </td>
+                        <td class="col col-2 product-subtotal">0</td>
                     </tr>
                 </div>
             </tbody>

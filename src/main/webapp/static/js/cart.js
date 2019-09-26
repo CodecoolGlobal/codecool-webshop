@@ -1,12 +1,50 @@
+function updatePrices() {
+
+    const products = document.querySelectorAll(".product");
+    const totalPriceOfCartElement = document.querySelector("#total-price");
+
+    let newTotalPrice = 0;
+
+    for (let product of products) {
+
+        let productPrice = parseFloat(product.querySelector(".product-price").textContent);
+
+        let productQuantity = parseFloat(product.querySelector(".quantity").textContent);
+
+        let newSubtotal = productPrice * productQuantity;
+
+        let productSubtotalElement = product.querySelector(".product-subtotal");
+        productSubtotalElement.textContent = newSubtotal.toString();
+
+        newTotalPrice += newSubtotal;
+
+    }
+
+    totalPriceOfCartElement.textContent = `${newTotalPrice.toString()} (USD)`;
+    sendTotalPriceToPaymentController(newTotalPrice)
+}
+
+function sendTotalPriceToPaymentController(totalPrice) {
+
+    let data = {
+        "total_price": totalPrice
+    };
+
+    api_post("/payment", data, function() {
+        console.log("works!");
+    });
+}
+
+
 function addToCartApi(productId, quantity) {
-    console.log(productId);
 
     let data = {
         "product_id": productId
     };
 
     api_post("/cart-add", data, function() {
-        raiseQuantity(quantity)
+        raiseQuantity(quantity);
+        updatePrices();
     });
 
 }
@@ -18,7 +56,8 @@ function removeFromCartApi(productId, quantity) {
     };
 
     api_post("/cart-remove", data, function() {
-        decreaseQuantity(quantity)
+        decreaseQuantity(quantity);
+        updatePrices();
     });
 }
 
@@ -31,6 +70,7 @@ function removeAllFromCartApi(productId, product, quantity) {
     api_post("/cart-remove-all", data, function() {
         quantity.textContent = 0;
         product.parentNode.removeChild(product);
+        updatePrices();
     });
 }
 
@@ -64,6 +104,12 @@ function removeAllFromCart(removeAllButton, product, quantity) {
 
 
 function addListenersToCartButtons() {
+
+    updatePrices();
+
+    const checkoutButton = document.querySelector("#checkout .btn-success");
+    checkoutButton.addEventListener("click", updatePrices);
+
     const products = document.querySelectorAll(".product");
 
     for (let product of products) {
@@ -71,7 +117,6 @@ function addListenersToCartButtons() {
         let currentQuantity = quantityModifier.querySelector(".quantity");
 
         let removeButton = quantityModifier.querySelector(".remove-from-cart");
-
         let addButton = quantityModifier.querySelector(".add-to-cart");
         let removeAllButton = quantityModifier.querySelector(".remove-all-from-cart");
 
@@ -85,7 +130,7 @@ function addListenersToCartButtons() {
 
         removeAllButton.addEventListener("click", function() {
             removeAllFromCart(removeAllButton, product, currentQuantity)
-        })
+        });
     }
 }
 

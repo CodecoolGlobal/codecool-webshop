@@ -37,7 +37,7 @@ public class CartController extends HttpServlet {
         Reader reader = req.getReader();
         Gson gson = new Gson();
 
-        int productId= getProductIdFromJSON(reader, gson);
+        int productId = getProductIdFromJSON(reader, gson);
 
         switch(url) {
             case "/cart-add":
@@ -45,6 +45,7 @@ public class CartController extends HttpServlet {
                 break;
             case "/cart-remove":
                 removeProductFromCart(resp, productId, session, gson);
+                break;
             case "/cart-remove-all":
                 removeAllProductInstancesFromCart(resp, productId, session, gson);
                 break;
@@ -74,7 +75,6 @@ public class CartController extends HttpServlet {
 
     private int getProductIdFromJSON(Reader reader, Gson gson) throws IOException {
         String requestBodyJSON = org.apache.commons.io.IOUtils.toString(reader);
-//        System.out.println(requestBodyJSON);
 
         Map requestBodyMap = gson.fromJson(requestBodyJSON, Map.class);
         return Integer.parseInt((String) requestBodyMap.get("product_id"));
@@ -99,15 +99,11 @@ public class CartController extends HttpServlet {
 
         List<Product> cartProductList = (List<Product>) session.getAttribute("cart");
         Map<Product, Integer> productQuantities = new HashMap<>();
-        double totalPrice = cart.getTotalPrice();
 
         if (cartProductList != null) {
             setupCart(cartProductList, productQuantities);
         }
 
-        session.setAttribute("totalPrice", totalPrice);
-
-        context.setVariable("total_price", totalPrice);
         context.setVariable("product_map", productQuantities);
         engine.process("product/cart.html", context, resp.getWriter());
     }
