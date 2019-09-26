@@ -45,14 +45,11 @@ function expandSection(element) {
 function version2() {
     // This is the important part!
 
-    var toggleButton = document.querySelector('#toggle-button');
+    var toggleButton = document.querySelector('#form-extension-switch');
 
-    toggleButton.addEventListener('click', function(event) {
-        event.preventDefault()
+    toggleButton.addEventListener('click', function() {
 
-        console.log('tits');
         const section = document.querySelector('.section.collapsible');
-        //var isCollapsed = section.getAttribute('[data-collapsed]');
         var isCollapsed = section.getAttribute('data-collapsed') === 'true';
 
         if(isCollapsed) {
