@@ -1,0 +1,1 @@
+{"buyerName":"Daniel Kovacs","buyerPhoneNumber":"06306777353","buyerEmailAddress":"dankovacs94@gmail.com","buyerShippingAddress":"HUngary, Budapest, 1025, Bánat utca 1.","buyerBillingAddress":"HUngary, Budapest, 1025, Bánat utca 1."}
