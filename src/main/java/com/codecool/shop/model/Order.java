@@ -10,6 +10,7 @@ public class Order {
     private String buyerEmailAddress;
     private String buyerShippingAddress;
     private String buyerBillingAddress;
+    private String id;
 
     public Order(List<Product> cart, String buyerName, String buyerPhoneNumber, String buyerEmailAddress, String buyerShippingAddress, String buyerBillingAddress) {
         this.cart = cart;
@@ -18,6 +19,7 @@ public class Order {
         this.buyerEmailAddress = buyerEmailAddress;
         this.buyerShippingAddress = buyerShippingAddress;
         this.buyerBillingAddress = buyerBillingAddress;
+        this.id = java.util.UUID.randomUUID().toString();
     }
 
     public List<Product> getCart() {
@@ -43,6 +45,11 @@ public class Order {
     public String getBuyerBillingAddress() {
         return buyerBillingAddress;
     }
+
+    public String getId() {
+        return id;
+    }
+
     private void clear(){
         cart.clear();
         this.buyerName = "";
@@ -50,6 +57,7 @@ public class Order {
         this.buyerBillingAddress = "";
         this.buyerEmailAddress = "";
         this.buyerShippingAddress = "";
+        this.id = "";
     }
 
 
