@@ -8,10 +8,12 @@ function handleClick(productId) {
 
 }
 
+
 function changeCartSize() {
     let cartSize = document.querySelector("#cart-size");
     cartSize.textContent++;
 }
+
 
 function handleButtonData(button) {
     let productId = button.dataset.productId;
@@ -33,6 +35,7 @@ function addListenersToCartButtons() {
 
 window.addEventListener("load", addListenersToCartButtons);
 
+
 function api_get(url, callback) {
     // it is not called from outside
     // loads data from API, parses it and calls the callback with it
@@ -44,6 +47,7 @@ function api_get(url, callback) {
         .then(response => response.json())  // parse the response as JSON
         .then(json_response => callback(json_response));  // Call the `callback` with the returned object
 }
+
 
 function api_post(url, data, callback) {
     // it is not called from outside

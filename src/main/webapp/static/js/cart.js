@@ -11,6 +11,7 @@ function addToCartApi(productId, quantity) {
 
 }
 
+
 function removeFromCartApi(productId, quantity) {
     let data = {
         "product_id": productId
@@ -20,6 +21,7 @@ function removeFromCartApi(productId, quantity) {
         decreaseQuantity(quantity)
     });
 }
+
 
 function removeAllFromCartApi(productId, product, quantity) {
     let data = {
@@ -32,9 +34,11 @@ function removeAllFromCartApi(productId, product, quantity) {
     });
 }
 
+
 function raiseQuantity(quantity) {
     quantity.textContent++;
 }
+
 
 function decreaseQuantity(quantity) {
     if (quantity.textContent > 0) quantity.textContent--;
@@ -46,10 +50,12 @@ function addToCart(addButton, quantity) {
     addToCartApi(productId, quantity);
 }
 
+
 function removeFromCart(removeButton, quantity) {
     let productId = removeButton.dataset.productId;
     removeFromCartApi(productId, quantity)
 }
+
 
 function removeAllFromCart(removeAllButton, product, quantity) {
     let productId = removeAllButton.dataset.productId;
@@ -83,7 +89,9 @@ function addListenersToCartButtons() {
     }
 }
 
+
 window.addEventListener("load", addListenersToCartButtons);
+
 
 function api_get(url, callback) {
     // it is not called from outside
@@ -96,6 +104,7 @@ function api_get(url, callback) {
         .then(response => response.json())  // parse the response as JSON
         .then(json_response => callback(json_response));  // Call the `callback` with the returned object
 }
+
 
 function api_post(url, data, callback) {
     // it is not called from outside
