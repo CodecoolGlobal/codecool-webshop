@@ -3,8 +3,12 @@
     margin: auto;
 }
 
-h4 {
+#total-price {
     text-align: right;
+}
+
+.card-header {
+    text-align: left;
 }
 
 #product-card {
