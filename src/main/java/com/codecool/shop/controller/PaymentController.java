@@ -28,7 +28,7 @@ public class PaymentController extends HttpServlet {
 
         session.setAttribute("payment details", paymentDetails);
 
-        resp.sendRedirect("/confirmation");
+        resp.sendRedirect("/order_confirmation");
     }
 
     @Override
