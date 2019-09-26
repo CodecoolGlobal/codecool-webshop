@@ -27,6 +27,8 @@
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/cart.css" />
+
+    <script src="/static/js/cart.js" defer></script>
 </head>
 
 <body>
@@ -62,10 +64,10 @@
             </thead>
             <tbody>
                 <div class="row">
-                    <tr th:each="product : ${product_map}" class="col col-4">
+                    <tr th:each="product : ${product_map}" class="col col-4 product">
 
                         <td>
-                            <div class="card" id="product-card">
+                            <div class="card product-card">
                                 <div class="card-header">
                                     <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${product.key.id} + '.jpg'" alt="" />
                                     <h4 th:text="${product.key.name}"></h4>
@@ -74,24 +76,15 @@
                             </div>
                         </td>
 
-                        <td class="col col-4" id="quantity-modifier">
-                            <form action="/cart-remove" method="post">
-                                <input type="hidden" name="product_id" th:value="${product.key.id}">
-                                <input type="submit" value="-"/>
-                            </form>
+                        <td class="col col-4 quantity-modifier">
+                            <button class="remove-from-cart btn btn-outline-success" th:attr="data-product-id=${product.key.id}"> - </button>
 
-                            <span th:text="${'  ' + product.value + '  '}" style="white-space: pre"></span>
+                            <span th:text="${product.value}" style="white-space: pre" class="quantity"></span>
 
-                            <form action="/cart-add" method="post">
-                                <input type="hidden" name="product_id" th:value="${product.key.id}">
-                                <input type="submit" value="+"/>
-                            </form>
+                            <button class="add-to-cart btn btn-outline-success" th:attr="data-product-id=${product.key.id}"> + </button>
 
                             <br><br>
-                            <form action="/cart-removeall" method="post">
-                                <input type="hidden" name="product_id" th:value="${product.key.id}">
-                                <input type="submit" value="Remove all"/>
-                            </form>
+                            <button class="remove-all-from-cart btn btn-outline-danger" th:attr="data-product-id=${product.key.id}"> Remove All </button>
                         </td>
 
                         <td class="col col-2" th:text="${product.key.defaultPrice}"></td>
