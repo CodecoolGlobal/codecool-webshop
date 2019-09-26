@@ -39,10 +39,10 @@ public class PaymentController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        int totalPrice = 0;
+        double totalPrice = 0;
 
         if (req.getSession().getAttribute("totalPrice") != null){
-            totalPrice = (int) req.getSession().getAttribute("totalPrice");
+            totalPrice = (double) req.getSession().getAttribute("totalPrice");
         }
 
         context.setVariable("totalPrice", totalPrice);
