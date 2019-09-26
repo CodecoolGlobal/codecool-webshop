@@ -14,13 +14,13 @@ function updatePrices() {
         let newSubtotal = productPrice * productQuantity;
 
         let productSubtotalElement = product.querySelector(".product-subtotal");
-        productSubtotalElement.textContent = newSubtotal.toString();
+        productSubtotalElement.textContent = newSubtotal.toFixed(2).toString();
 
         newTotalPrice += newSubtotal;
 
     }
 
-    totalPriceOfCartElement.textContent = `${newTotalPrice.toString()} (USD)`;
+    totalPriceOfCartElement.textContent = `${newTotalPrice.toFixed(2).toString()} (USD)`;
     sendTotalPriceToPaymentController(newTotalPrice)
 }
 

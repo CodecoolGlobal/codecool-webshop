@@ -74,7 +74,7 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Samsung Galaxy S nagyonsok Pro X 2019.v42", 1000, "USD", "I'm running out of ideas.", smartphone, samsung));
 
         // product_7
-        productDataStore.add(new Product("Self-driving car", 999999999, "USD", "If you're already living in 3019.", car, tesla));
+        productDataStore.add(new Product("Self-driving car", 9999999, "USD", "If you're already living in 3019.", car, tesla));
 
         // product_8
         productDataStore.add(new Product("Wireless phone charger", 49, "USD", "More oomph for your phone, anywhere!", accessory, tesla));

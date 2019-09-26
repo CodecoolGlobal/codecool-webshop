@@ -49,7 +49,6 @@ public class PaymentController extends HttpServlet {
 
         if (req.getHeader("referer").contains("cart")) {
             totalPrice = getTotalPrice(req, resp);
-            System.out.println(totalPrice);
             session.setAttribute("totalPrice", totalPrice);
         }
 
