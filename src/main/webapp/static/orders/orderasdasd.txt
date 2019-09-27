@@ -1,1 +1,1 @@
-{"buyerName":"asdasd","buyerPhoneNumber":"dfgdsfg","buyerEmailAddress":"asd@a.com","buyerShippingAddress":"asd, asd, 15957, asd","buyerBillingAddress":"asd, asd, 15957, asd"}
+{"buyerName":"asdasd","buyerPhoneNumber":"asfdasf","buyerEmailAddress":"dasdasd@xn--sfdasf-9ta","buyerShippingAddress":"asfasfa, dasfasf, asff, asdfasfa","buyerBillingAddress":"asfasfa, dasfasf, asff, asdfasfa"}
