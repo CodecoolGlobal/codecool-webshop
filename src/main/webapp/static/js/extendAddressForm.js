@@ -30,7 +30,8 @@ function expandSection(element) {
     var sectionWidth = element.scrollWidth;
 
     // have the element transition to the height of its inner content
-    element.style.width = sectionWidth + 'px';
+    //TODO fix this static width part
+    element.style.width = 178 + 'px';
 
     // when the next css transition finishes (which should be the one we just triggered)
     element.addEventListener('transitionend', function(e) {
