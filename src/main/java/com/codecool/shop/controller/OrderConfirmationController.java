@@ -2,7 +2,9 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.model.Order;
+import com.codecool.shop.model.Product;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -25,6 +27,8 @@ public class OrderConfirmationController extends HttpServlet {
     final String FROM = "webshopnigg4z@gmail.com";
     final String USERNAME = "webshopnigg4z@gmail.com";
     final String PASSWORD = "JavaIsGood";
+    private Gson gson = new Gson();
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -33,7 +37,10 @@ public class OrderConfirmationController extends HttpServlet {
         engine.process("product/confirmation.html", context, resp.getWriter());
         HttpSession session = req.getSession();
         Order order = (Order) session.getAttribute("order");
+        Map<String, String[]> paymentDetails = (Map<String, String[]>) session.getAttribute("payment details");
+
         orderConfirmation(order, USERNAME, PASSWORD, FROM);
+        gsonWriter(order,paymentDetails);
         gsonWriter(order);
         session.invalidate();
     }
@@ -53,7 +60,7 @@ public class OrderConfirmationController extends HttpServlet {
                         return new PasswordAuthentication(username, password);
                     }
                 });
-//
+
         try {
             Message message = new MimeMessage(sessionEmail);
             message.setFrom(new InternetAddress(from));
@@ -80,12 +87,31 @@ public class OrderConfirmationController extends HttpServlet {
 
 
     private void gsonWriter(Order order) throws IOException {
-        Gson gson = new Gson();
         String orderToSave = gson.toJson(order);
         FileWriter file = new FileWriter("src/main/webapp/static/orders/order" + order.getBuyerName() + ".txt");
 
+        fileWriter(orderToSave, file);
+        order.getCart().clear();
+    }
+
+    private void gsonWriter(Order order, Map<String, String[]> accountInfo) throws IOException {
+        String orderToSave = gson.toJson(order);
+        String payment = gson.toJson(accountInfo);
+        JsonArray orderDetails = new JsonArray();
+        orderDetails.add(orderToSave);
+        orderDetails.add(payment);
+        FileWriter file = new FileWriter("src/main/webapp/static/admin/" + order.getId() + ".txt");
+
+        fileWriter(orderDetails, file);
+    }
+
+    private void fileWriter(Object orderDetails, FileWriter file) throws IOException {
         try {
-            file.write(orderToSave);
+            if(orderDetails instanceof JsonArray) {
+                file.write(String.valueOf(orderDetails));
+            } else if (orderDetails instanceof String){
+                file.write((String) orderDetails);
+            }
         } catch (IOException e){
             e.printStackTrace();
 
@@ -93,7 +119,6 @@ public class OrderConfirmationController extends HttpServlet {
             file.flush();
             file.close();
         }
-        order.getCart().clear();
     }
 
 
