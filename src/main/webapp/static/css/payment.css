@@ -5,7 +5,7 @@
 body{
     height:100vh;
     overflow:hidden;
-    background:linear-gradient(-40deg,white,lightgrey);
+    background: #65b0ca;
     box-sizing:border-box;
     font-family: "Montserrat", sans-serif;
 }

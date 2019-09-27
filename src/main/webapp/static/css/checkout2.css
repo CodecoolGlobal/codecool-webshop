@@ -20,10 +20,11 @@ body {
     font-size: 12px;
     line-height: 30px;
     color: #777;
-    background: #4CAF50;
+    background: #65b0ca;
 }
 
 .container {
+    top: 200px;
     display: flex;
     justify-content: center;
     /*max-width: auto;*/
@@ -239,7 +240,7 @@ input:checked + .slider:before {
 
 .section {
     overflow:hidden;
-    transition:width 0.3s ease-out;
+    transition:width 0.3s ease-in-out;
     width:auto;
 }
 
