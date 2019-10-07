@@ -9,16 +9,34 @@ import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import javax.sql.DataSource;
+import java.sql.SQLException;
+
 
 @WebListener
 public class Initializer implements ServletContextListener {
 
+    private DataSource connect() throws SQLException {
+        PGSimpleDataSource dataSource = new PGSimpleDataSource();
+
+        dataSource.setDatabaseName("codecoolshop");
+        dataSource.setUser("attila");
+        dataSource.setPassword("nobilitas");
+
+        dataSource.getConnection().close();
+
+        return dataSource;
+    }
+
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+
+        /*
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
@@ -110,7 +128,7 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("iLight 7s", 85, "USD", "For those who want to fit the world in their pockets.", smartphone, amazon));
 
         // product_18
-        productDataStore.add(new Product("Dreamcom 10", 1800, "USD", "Fully adjustable. Looks ugly.", laptop, amazon));
+        productDataStore.add(new Product("Dreamcom 10", 1800, "USD", "Fully adjustable. Looks ugly.", laptop, amazon));*/
 
         //TODO csutkapipa
     }
