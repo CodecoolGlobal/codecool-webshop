@@ -1,12 +1,13 @@
 package com.codecool.shop.dao.implementation;
 
+import com.codecool.shop.dao.AbstractDao;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
 import java.util.List;
 
-public class SupplierDaoJDBC implements SupplierDao {
+public class SupplierDaoJDBC implements SupplierDao, AbstractDao {
     private DataSource datasource;
 
     public SupplierDaoJDBC(DataSource datasource){

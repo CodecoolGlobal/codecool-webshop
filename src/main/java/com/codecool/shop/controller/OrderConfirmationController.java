@@ -42,7 +42,9 @@ public class OrderConfirmationController extends HttpServlet {
         orderConfirmation(order, USERNAME, PASSWORD, FROM);
         gsonWriter(order,paymentDetails);
         gsonWriter(order);
-        session.invalidate();
+        session.removeAttribute("payment details");
+        session.removeAttribute("order");
+        session.removeAttribute("cart");
     }
 
     private void orderConfirmation(Order order, String username, String password, String from) {
