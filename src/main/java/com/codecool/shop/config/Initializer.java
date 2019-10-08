@@ -26,7 +26,7 @@ public class Initializer implements ServletContextListener {
             dataSource = connector.connect();
             cartDao = new CartDaoJDBC(dataSource);
             productCategoryDao = new ProductCategoryDaoJDBC(dataSource);
-            productDao = new ProductDaoJDBC(dataSource);
+            productDao = new ProductDaoJDBC(dataSource, supplierDao, productCategoryDao);
             supplierDao = new SupplierDaoJDBC(dataSource);
     }
 
@@ -34,6 +34,7 @@ public class Initializer implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
 
         System.out.println(cartDao.testSelect(1));
+        productDao.find(1);
         /*
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();

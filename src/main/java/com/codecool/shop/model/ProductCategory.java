@@ -5,11 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ProductCategory extends BaseModel {
+    private int id;
     private String department;
     private List<Product> products;
 
-    public ProductCategory(String name, String department, String description) {
+    public ProductCategory(Integer ID, String name, String department, String description) {
         super(name, description);
+        this.id = ID;
         this.department = department;
         this.products = new ArrayList<>();
     }

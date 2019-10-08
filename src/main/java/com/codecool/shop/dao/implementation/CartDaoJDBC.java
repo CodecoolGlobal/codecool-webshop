@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
 
-public class CartDaoJDBC  implements AbstractDao, CartDao {
+public class CartDaoJDBC implements AbstractDao {
     private DataSource dataSource;
 
     public CartDaoJDBC(DataSource dataSource) {
@@ -41,13 +41,13 @@ public class CartDaoJDBC  implements AbstractDao, CartDao {
     }
 
     @Override
-    public void add(Product product) {
+    public void add(Object o) {
 
     }
 
     @Override
-    public void remove(Product product) {
-
+    public Object find(int id) {
+        return null;
     }
 
     @Override
@@ -56,12 +56,12 @@ public class CartDaoJDBC  implements AbstractDao, CartDao {
     }
 
     @Override
-    public Product getProduct(int productId) {
+    public List getAll() {
         return null;
     }
 
     @Override
-    public List<Product> getAllProduct(int cartId) {
+    public List getBy(Object o) {
         return null;
     }
 }

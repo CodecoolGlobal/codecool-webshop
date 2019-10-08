@@ -7,25 +7,21 @@ import com.codecool.shop.model.Supplier;
 import javax.sql.DataSource;
 import java.util.List;
 
-public class SupplierDaoJDBC implements SupplierDao, AbstractDao {
+public class SupplierDaoJDBC implements AbstractDao {
     private DataSource datasource;
 
     public SupplierDaoJDBC(DataSource datasource){
         this.datasource = datasource;
     }
 
+
     @Override
-    public void add(Supplier supplier) {
+    public void add(Object o) {
 
     }
 
     @Override
-    public Supplier find(int id) {
-        return null;
-    }
-
-    @Override
-    public Supplier find(String supplierName) {
+    public Object find(int id) {
         return null;
     }
 
@@ -35,7 +31,12 @@ public class SupplierDaoJDBC implements SupplierDao, AbstractDao {
     }
 
     @Override
-    public List<Supplier> getAll() {
+    public List getAll() {
+        return null;
+    }
+
+    @Override
+    public List getBy(Object o) {
         return null;
     }
 }
