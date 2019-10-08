@@ -3,10 +3,7 @@ package com.codecool.shop.config;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.CartDaoJDBC;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -22,61 +19,25 @@ import java.sql.*;
 @WebListener
 public class Initializer implements ServletContextListener {
 
+    Connector connector = new Connector();
+    DataSource dataSource = connector.connect();
+
     private CartDaoJDBC cartDao;
+    private ProductCategoryDaoJDBC productCategoryDao;
+    private ProductDaoJDBC productDao;
+    private SupplierDaoJDBC supplierDao;
 
-    private DataSource connect() throws SQLException {
-        PGSimpleDataSource dataSource = new PGSimpleDataSource();
-
-        dataSource.setDatabaseName("codecoolshop");
-        dataSource.setUser("daniel");
-        dataSource.setPassword("pleasework");
-
-        dataSource.getConnection().close();
-
-        return dataSource;
-    }
-
-    public int testSelect() {
-        String query = "SELECT * FROM cart WHERE product_id = ?";
-
-        try {
-            PreparedStatement selectTest = cartDao.getConnection().prepareStatement(query);
-            selectTest.setInt(1, 2);
-
-            ResultSet selectedTest = selectTest.executeQuery();
-
-            while (selectedTest.next()) {
-
-                int productId = selectedTest.getInt("product_id");
-
-                return productId;
-            }
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return 0;
+    public Initializer() throws SQLException {
+            cartDao = new CartDaoJDBC(dataSource);
+            productCategoryDao = new ProductCategoryDaoJDBC(dataSource);
+            productDao = new ProductDaoJDBC(dataSource);
+            supplierDao = new SupplierDaoJDBC(dataSource);
     }
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 
-        DataSource dataSource = null;
-        try {
-            dataSource = connect();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        cartDao =  new CartDaoJDBC(dataSource);
-
-        System.out.println(testSelect());
-
-
-
-
-
+        System.out.println(cartDao.testSelect());
         /*
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
