@@ -22,19 +22,19 @@ public class Initializer implements ServletContextListener {
     private SupplierDaoJDBC supplierDao;
 
     public Initializer() throws SQLException {
-            connector = new Connector();
-            dataSource = connector.connect();
-            cartDao = new CartDaoJDBC(dataSource);
-            productCategoryDao = new ProductCategoryDaoJDBC(dataSource);
-            productDao = new ProductDaoJDBC(dataSource, supplierDao, productCategoryDao);
-            supplierDao = new SupplierDaoJDBC(dataSource);
+        connector = new Connector();
+        dataSource = connector.connect();
+        cartDao = new CartDaoJDBC(dataSource);
+        productCategoryDao = new ProductCategoryDaoJDBC(dataSource);
+        supplierDao = new SupplierDaoJDBC(dataSource);
+        productDao = new ProductDaoJDBC(dataSource, supplierDao, productCategoryDao);
     }
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 
-        System.out.println(cartDao.testSelect(1));
-        productDao.find(1);
+//        System.out.println(cartDao.testSelect(1));
+        System.out.println(productDao.find(1));
         /*
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();

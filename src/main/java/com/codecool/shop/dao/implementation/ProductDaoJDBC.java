@@ -46,7 +46,7 @@ public class ProductDaoJDBC  implements AbstractDao {
                 String defaultCurrency = resultSet.getString("default_currency");
                 int productCategoryID = resultSet.getInt("product_category");
                 int supplierID = resultSet.getInt("supplier");
-                resultSet.close();
+
                 product = new Product(productID,
                         productName,
                         defaultPrice,
@@ -55,6 +55,9 @@ public class ProductDaoJDBC  implements AbstractDao {
                         (ProductCategory) productCategoryDaoJDBC.find(productCategoryID),
                         (Supplier) supplierDaoJDBC.find(supplierID));
             }
+
+            resultSet.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -15,7 +15,7 @@ import java.util.List;
 public class ProductCategoryDaoJDBC implements AbstractDao {
     private DataSource dataSource;
 
-    public ProductCategoryDaoJDBC(DataSource dataSource){
+    public ProductCategoryDaoJDBC(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -33,18 +33,21 @@ public class ProductCategoryDaoJDBC implements AbstractDao {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
+
             while (resultSet.next()){
                 int productCategoryID = resultSet.getInt("id");
                 String productCategoryName = resultSet.getString("name");
-                String productCategoryDesc = resultSet.getString("description");
+                String productCategoryDescription = resultSet.getString("description");
                 String productCategoryDepartment = resultSet.getString("department");
 
-                resultSet.close();
                 productCategory = new ProductCategory(productCategoryID,
                         productCategoryName,
-                        productCategoryDesc,
+                        productCategoryDescription,
                         productCategoryDepartment);
             }
+
+            resultSet.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
