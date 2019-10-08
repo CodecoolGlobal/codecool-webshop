@@ -28,7 +28,7 @@ CREATE TABLE product (
 );
 
 CREATE TABLE cart (
-                      cart_id INTEGER PRIMARY KEY,
+                      cart_id INTEGER,
                       product_id INTEGER REFERENCES product(id)
 );
 

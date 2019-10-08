@@ -3,6 +3,7 @@ package com.codecool.shop.config;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.CartDaoJDBC;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
@@ -15,26 +16,66 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
-import java.sql.SQLException;
+import java.sql.*;
 
 
 @WebListener
 public class Initializer implements ServletContextListener {
 
+    private CartDaoJDBC cartDao;
+
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
 
         dataSource.setDatabaseName("codecoolshop");
-        dataSource.setUser("attila");
-        dataSource.setPassword("nobilitas");
+        dataSource.setUser("daniel");
+        dataSource.setPassword("pleasework");
 
         dataSource.getConnection().close();
 
         return dataSource;
     }
 
+    public int testSelect() {
+        String query = "SELECT * FROM cart WHERE product_id = ?";
+
+        try {
+            PreparedStatement selectTest = cartDao.getConnection().prepareStatement(query);
+            selectTest.setInt(1, 2);
+
+            ResultSet selectedTest = selectTest.executeQuery();
+
+            while (selectedTest.next()) {
+
+                int productId = selectedTest.getInt("product_id");
+
+                return productId;
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+
+        DataSource dataSource = null;
+        try {
+            dataSource = connect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        cartDao =  new CartDaoJDBC(dataSource);
+
+        System.out.println(testSelect());
+
+
+
+
 
         /*
         ProductDao productDataStore = ProductDaoMem.getInstance();
@@ -137,4 +178,5 @@ public class Initializer implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {
 
     }
+
 }
