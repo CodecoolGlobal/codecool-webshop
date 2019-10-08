@@ -33,8 +33,8 @@ public class ProductCategory extends BaseModel {
     }
 
     public List<Product> getFirstThreeProducts() {
-        List<Product> firsThree = products.subList(0, 3);
-        return firsThree;
+        List<Product> firstThree = products.subList(0, 3);
+        return firstThree;
     }
 
     public void addProduct(Product product) {
@@ -44,9 +44,9 @@ public class ProductCategory extends BaseModel {
     public String toString() {
         return String.format(
                 "id: %1$d," +
-                        "name: %2$s, " +
-                        "department: %3$s, " +
-                        "description: %4$s",
+                "name: %2$s, " +
+                "department: %3$s, " +
+                "description: %4$s",
                 this.id,
                 this.name,
                 this.department,

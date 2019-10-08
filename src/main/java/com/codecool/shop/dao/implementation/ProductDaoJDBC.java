@@ -11,9 +11,10 @@ import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDaoJDBC  implements AbstractDao {
+public class ProductDaoJDBC implements AbstractDao<Product> {
     private DataSource dataSource;
     private AbstractDao supplierDaoJDBC;
     private AbstractDao productCategoryDaoJDBC;
@@ -25,12 +26,12 @@ public class ProductDaoJDBC  implements AbstractDao {
     }
 
     @Override
-    public void add(Object o) {
+    public void add(Product product) {
 
     }
 
     @Override
-    public Object find(int id) {
+    public Product find(int id) {
         Product product = null;
         String sql = "SELECT * FROM product WHERE id = ?";
 
@@ -38,7 +39,9 @@ public class ProductDaoJDBC  implements AbstractDao {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
+
             while (resultSet.next()){
+
                 int productID = resultSet.getInt("id");
                 String productName = resultSet.getString("name");
                 String productDesc = resultSet.getString("description");
@@ -47,13 +50,15 @@ public class ProductDaoJDBC  implements AbstractDao {
                 int productCategoryID = resultSet.getInt("product_category");
                 int supplierID = resultSet.getInt("supplier");
 
-                product = new Product(productID,
+                product = new Product(
+                        productID,
                         productName,
                         defaultPrice,
                         defaultCurrency,
                         productDesc,
                         (ProductCategory) productCategoryDaoJDBC.find(productCategoryID),
-                        (Supplier) supplierDaoJDBC.find(supplierID));
+                        (Supplier) supplierDaoJDBC.find(supplierID)
+                );
             }
 
             resultSet.close();
@@ -75,8 +80,48 @@ public class ProductDaoJDBC  implements AbstractDao {
         return null;
     }
 
+
     @Override
-    public List getBy(Object o) {
-        return null;
+    public List<Product> getBy(int id) {
+
+//        ProductCategory productCategory = (ProductCategory) o;
+        List<Product> products = new ArrayList<>();
+
+        String sql = "SELECT * FROM product WHERE product_category = ?";
+
+        try {
+            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+
+                int productID = resultSet.getInt("id");
+                String productName = resultSet.getString("name");
+                String productDesc = resultSet.getString("description");
+                double defaultPrice = resultSet.getDouble("default_price");
+                String defaultCurrency = resultSet.getString("default_currency");
+                int productCategoryID = resultSet.getInt("product_category");
+                int supplierID = resultSet.getInt("supplier");
+
+                products.add(new Product(
+                        productID,
+                        productName,
+                        defaultPrice,
+                        defaultCurrency,
+                        productDesc,
+                        (ProductCategory) productCategoryDaoJDBC.find(productCategoryID),
+                        (Supplier) supplierDaoJDBC.find(supplierID)
+                    )
+                );
+            }
+
+            resultSet.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return products;
     }
 }

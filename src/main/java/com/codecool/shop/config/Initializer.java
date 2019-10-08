@@ -2,6 +2,7 @@ package com.codecool.shop.config;
 
 
 import com.codecool.shop.dao.implementation.*;
+import com.codecool.shop.model.ProductCategory;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -33,8 +34,10 @@ public class Initializer implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 
-//        System.out.println(cartDao.testSelect(1));
-        System.out.println(productDao.find(1));
+        for (ProductCategory category : productCategoryDao.getAll()) {
+            System.out.println(category);
+        }
+
         /*
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();

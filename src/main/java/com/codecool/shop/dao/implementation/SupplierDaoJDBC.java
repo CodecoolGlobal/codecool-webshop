@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class SupplierDaoJDBC implements AbstractDao {
+public class SupplierDaoJDBC implements AbstractDao<Supplier> {
     private DataSource dataSource;
 
     public SupplierDaoJDBC(DataSource datasource) {
@@ -19,12 +19,12 @@ public class SupplierDaoJDBC implements AbstractDao {
 
 
     @Override
-    public void add(Object o) {
+    public void add(Supplier supplier) {
 
     }
 
     @Override
-    public Object find(int id) {
+    public Supplier find(int id) {
         Supplier supplier = null;
         String sql = "SELECT * FROM supplier WHERE id = ?";
 
@@ -38,9 +38,11 @@ public class SupplierDaoJDBC implements AbstractDao {
                 String supplierName = resultSet.getString("name");
                 String supplierDescription = resultSet.getString("description");
 
-                supplier = new Supplier(supplierID,
+                supplier = new Supplier(
+                        supplierID,
                         supplierName,
-                        supplierDescription);
+                        supplierDescription
+                );
             }
 
             resultSet.close();
@@ -63,7 +65,7 @@ public class SupplierDaoJDBC implements AbstractDao {
     }
 
     @Override
-    public List getBy(Object o) {
+    public <E> List<Supplier> getBy(int id) {
         return null;
     }
 }

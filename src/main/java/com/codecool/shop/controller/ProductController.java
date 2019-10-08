@@ -3,11 +3,8 @@ package com.codecool.shop.controller;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.Cart;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.BaseModel;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
@@ -21,7 +18,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,11 +33,15 @@ public class ProductController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        setupContextForPage(context, req);
+        try {
+            setupContextForPage(context, req);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         engine.process("product/index.html", context, resp.getWriter());
     }
 
-    private void setupContextForPage(WebContext context, HttpServletRequest req) {
+    private void setupContextForPage(WebContext context, HttpServletRequest req) throws SQLException {
 
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
@@ -75,9 +78,23 @@ public class ProductController extends HttpServlet {
         }
 
         else {
-            for (ProductCategory category : productCategoryDataStore.getAll()) {
-                results.put(category, category.getFirstThreeProducts());
-                // used instead of category.getFirstThreeProducts(), works only if categery has at least 3 products!!
+//            for (ProductCategory category : productCategoryDataStore.getAll()) {
+//                results.put(category, category.getFirstThreeProducts());
+//                // used instead of category.getFirstThreeProducts(), works only if categery has at least 3 products!!
+//            }
+
+            Connector connector = new Connector();
+            DataSource dataSource = connector.connect();
+            CartDaoJDBC cartDao = new CartDaoJDBC(dataSource);
+            ProductCategoryDaoJDBC productCategoryDao = new ProductCategoryDaoJDBC(dataSource);
+            SupplierDaoJDBC supplierDao = new SupplierDaoJDBC(dataSource);
+
+            ProductDaoJDBC productDao = new ProductDaoJDBC(dataSource, supplierDao, productCategoryDao);
+
+            for (ProductCategory category : productCategoryDao.getAll()) {
+                System.out.println(category);
+
+                results.put(category, productDao.getBy(category.getId()));
             }
         }
         context.setVariable("results", results);
