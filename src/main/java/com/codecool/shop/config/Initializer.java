@@ -19,8 +19,8 @@ import java.sql.*;
 @WebListener
 public class Initializer implements ServletContextListener {
 
-    Connector connector = new Connector();
-    DataSource dataSource = connector.connect();
+    Connector connector;
+    DataSource dataSource;
 
     private CartDaoJDBC cartDao;
     private ProductCategoryDaoJDBC productCategoryDao;
@@ -28,6 +28,8 @@ public class Initializer implements ServletContextListener {
     private SupplierDaoJDBC supplierDao;
 
     public Initializer() throws SQLException {
+            connector = new Connector();
+            dataSource = connector.connect();
             cartDao = new CartDaoJDBC(dataSource);
             productCategoryDao = new ProductCategoryDaoJDBC(dataSource);
             productDao = new ProductDaoJDBC(dataSource);
