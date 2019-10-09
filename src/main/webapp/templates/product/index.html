@@ -34,12 +34,8 @@
 <body>
 
 <div class="jumbotron text-center">
-    <h1><a href="/">Codecool Shop</a></h1>
-</div>
-
-<div class="container">
-
     <div class="cart-size-div">
+        <h1><a href="/">Codecool Shop</a></h1>
         <span th:text="${cartSize ? cartSize : 0}" id="cart-size"></span>
         <span> items in Cart </span>
 
@@ -48,6 +44,9 @@
         <span>&#128722;</span>
     </div>
     <br>
+</div>
+
+<div class="container">
 
     <div class="card" th:each="result : ${results}" id="product-categories">
         <a th:text="${result.key.name} " class="product-category-name">Category Title</a>

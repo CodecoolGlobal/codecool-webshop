@@ -35,6 +35,7 @@ public class ProductController extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        resp.setCharacterEncoding("UTF-8");
         engine.process("product/index.html", context, resp.getWriter());
     }
 

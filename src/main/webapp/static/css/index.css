@@ -43,3 +43,15 @@
 .card-body {
     flex-grow: 1;
 }
+
+.jumbotron {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    /*float: left;*/
+    /*width: 100%;*/
+    /*margin-top: 200px;*/
+
+}
+
+

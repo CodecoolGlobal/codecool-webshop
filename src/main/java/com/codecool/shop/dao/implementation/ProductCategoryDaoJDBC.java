@@ -4,6 +4,7 @@ import com.codecool.shop.dao.AbstractDao;
 import com.codecool.shop.model.ProductCategory;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +19,6 @@ public class ProductCategoryDaoJDBC implements AbstractDao<ProductCategory> {
     }
 
 
-
     @Override
     public void add(ProductCategory productCategory) {
 
@@ -29,28 +29,30 @@ public class ProductCategoryDaoJDBC implements AbstractDao<ProductCategory> {
         ProductCategory productCategory = null;
         String sql = "SELECT * FROM product_category WHERE id = ?";
 
-        try {
-            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(sql);
+        try (Connection con = dataSource.getConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(sql);
+        ) {
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()){
+            try (
+                    ResultSet resultSet = preparedStatement.executeQuery()) {
 
-                int productCategoryID = resultSet.getInt("id");
-                String productCategoryName = resultSet.getString("name");
-                String productCategoryDescription = resultSet.getString("description");
-                String productCategoryDepartment = resultSet.getString("department");
+                while (resultSet.next()) {
 
-                productCategory = new ProductCategory(
-                        productCategoryID,
-                        productCategoryName,
-                        productCategoryDescription,
-                        productCategoryDepartment
-                );
+                    int productCategoryID = resultSet.getInt("id");
+                    String productCategoryName = resultSet.getString("name");
+                    String productCategoryDescription = resultSet.getString("description");
+                    String productCategoryDepartment = resultSet.getString("department");
+
+                    productCategory = new ProductCategory(
+                            productCategoryID,
+                            productCategoryName,
+                            productCategoryDescription,
+                            productCategoryDepartment
+                    );
+                }
+
             }
-
-            resultSet.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -63,28 +65,31 @@ public class ProductCategoryDaoJDBC implements AbstractDao<ProductCategory> {
         ProductCategory productCategory = null;
         String sql = "SELECT * FROM product_category WHERE name = ?";
 
-        try {
-            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(sql);
+        try (Connection con = dataSource.getConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(sql)
+        ) {
+
             preparedStatement.setString(1, categoryName);
-            ResultSet resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()){
+            try (
+                    ResultSet resultSet = preparedStatement.executeQuery()) {
 
-                int productCategoryID = resultSet.getInt("id");
-                String productCategoryName = resultSet.getString("name");
-                String productCategoryDescription = resultSet.getString("description");
-                String productCategoryDepartment = resultSet.getString("department");
+                while (resultSet.next()) {
 
-                productCategory = new ProductCategory(
-                        productCategoryID,
-                        productCategoryName,
-                        productCategoryDescription,
-                        productCategoryDepartment
-                );
+                    int productCategoryID = resultSet.getInt("id");
+                    String productCategoryName = resultSet.getString("name");
+                    String productCategoryDescription = resultSet.getString("description");
+                    String productCategoryDepartment = resultSet.getString("department");
+
+                    productCategory = new ProductCategory(
+                            productCategoryID,
+                            productCategoryName,
+                            productCategoryDescription,
+                            productCategoryDepartment
+                    );
+                }
+
             }
-
-            resultSet.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -104,10 +109,10 @@ public class ProductCategoryDaoJDBC implements AbstractDao<ProductCategory> {
         String sql = "SELECT * FROM product_category";
 
         try (
-            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery()){
+                PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(sql);
+                ResultSet resultSet = preparedStatement.executeQuery()) {
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
 
                 int productCategoryID = resultSet.getInt("id");
                 String productCategoryName = resultSet.getString("name");
@@ -115,15 +120,14 @@ public class ProductCategoryDaoJDBC implements AbstractDao<ProductCategory> {
                 String productCategoryDepartment = resultSet.getString("department");
 
                 allProductCategories.add(new ProductCategory(
-                        productCategoryID,
-                        productCategoryName,
-                        productCategoryDescription,
-                        productCategoryDepartment
-                    )
+                                productCategoryID,
+                                productCategoryName,
+                                productCategoryDescription,
+                                productCategoryDepartment
+                        )
                 );
             }
 
-            resultSet.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
