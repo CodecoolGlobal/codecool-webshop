@@ -5,6 +5,7 @@ import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,24 +29,27 @@ public class SupplierDaoJDBC implements AbstractDao<Supplier> {
         Supplier supplier = null;
         String sql = "SELECT * FROM supplier WHERE id = ?";
 
-        try {
-            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(sql);
+        try (Connection con = dataSource.getConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
 
-                int supplierID = resultSet.getInt("id");
-                String supplierName = resultSet.getString("name");
-                String supplierDescription = resultSet.getString("description");
+            try (
 
-                supplier = new Supplier(
-                        supplierID,
-                        supplierName,
-                        supplierDescription
-                );
+                    ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+
+                    int supplierID = resultSet.getInt("id");
+                    String supplierName = resultSet.getString("name");
+                    String supplierDescription = resultSet.getString("description");
+
+                    supplier = new Supplier(
+                            supplierID,
+                            supplierName,
+                            supplierDescription
+                    );
+                }
             }
-
-            resultSet.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,24 +62,27 @@ public class SupplierDaoJDBC implements AbstractDao<Supplier> {
         Supplier supplier = null;
         String sql = "SELECT * FROM supplier WHERE name = ?";
 
-        try {
-            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(sql);
+        try (Connection con = dataSource.getConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+
             preparedStatement.setString(1, supplierName);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
 
-                int supplierID = resultSet.getInt("id");
-                String supplierName2 = resultSet.getString("name");
-                String supplierDescription = resultSet.getString("description");
+            try (
+                    ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
 
-                supplier = new Supplier(
-                        supplierID,
-                        supplierName2,
-                        supplierDescription
-                );
+                    int supplierID = resultSet.getInt("id");
+                    String supplierName2 = resultSet.getString("name");
+                    String supplierDescription = resultSet.getString("description");
+
+                    supplier = new Supplier(
+                            supplierID,
+                            supplierName2,
+                            supplierDescription
+                    );
+                }
+
             }
-
-            resultSet.close();
 
         } catch (SQLException e) {
             e.printStackTrace();

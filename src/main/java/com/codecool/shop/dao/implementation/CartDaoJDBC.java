@@ -13,30 +13,6 @@ public class CartDaoJDBC implements AbstractDao<Cart> {
         this.dataSource = Connector.getInstance().connect();
     }
 
-    public int testSelect(Integer id) {
-        String query = "SELECT cart_id FROM cart WHERE product_id = ?";
-
-
-        try {
-            PreparedStatement selectTest = dataSource.getConnection().prepareStatement(query);
-            selectTest.setInt(1, id);
-
-            ResultSet selectedTest = selectTest.executeQuery();
-
-            while (selectedTest.next()) {
-
-                int productId = selectedTest.getInt("cart_id");
-
-                return productId;
-            }
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return 0;
-    }
 
     @Override
     public void add(Cart cart) {

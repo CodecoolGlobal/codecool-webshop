@@ -34,34 +34,34 @@ public class ProductDaoJDBC implements AbstractDao<Product> {
         Product product = null;
         String sql = "SELECT * FROM product WHERE id = ?";
 
-        try {
-            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(sql);
+        try(Connection con = dataSource.getConnection();
+            PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
 
-            while (resultSet.next()) {
 
-                int productID = resultSet.getInt("id");
-                String productName = resultSet.getString("name");
-                String productDesc = resultSet.getString("description");
-                double defaultPrice = resultSet.getDouble("default_price");
-                String defaultCurrency = resultSet.getString("default_currency");
-                int productCategoryID = resultSet.getInt("product_category");
-                int supplierID = resultSet.getInt("supplier");
+                while (resultSet.next()) {
 
-                product = new Product(
-                        productID,
-                        productName,
-                        defaultPrice,
-                        defaultCurrency,
-                        productDesc,
-                        (ProductCategory) productCategoryDaoJDBC.find(productCategoryID),
-                        (Supplier) supplierDaoJDBC.find(supplierID)
-                );
+                    int productID = resultSet.getInt("id");
+                    String productName = resultSet.getString("name");
+                    String productDesc = resultSet.getString("description");
+                    double defaultPrice = resultSet.getDouble("default_price");
+                    String defaultCurrency = resultSet.getString("default_currency");
+                    int productCategoryID = resultSet.getInt("product_category");
+                    int supplierID = resultSet.getInt("supplier");
+
+                    product = new Product(
+                            productID,
+                            productName,
+                            defaultPrice,
+                            defaultCurrency,
+                            productDesc,
+                            (ProductCategory) productCategoryDaoJDBC.find(productCategoryID),
+                            (Supplier) supplierDaoJDBC.find(supplierID)
+                    );
+                }
             }
-
-            resultSet.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
