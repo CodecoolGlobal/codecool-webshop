@@ -4,7 +4,6 @@ package com.codecool.shop.model;
 import java.lang.reflect.Field;
 
 public class BaseModel {
-
     protected int id;
     protected String name;
     protected String description;
@@ -13,18 +12,14 @@ public class BaseModel {
         this.name = name;
     }
 
-    public BaseModel(String name, String description) {
+    public BaseModel(int ID, String name, String description) {
+        this.id = ID;
         this.name = name;
         this.description = description;
     }
 
-
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

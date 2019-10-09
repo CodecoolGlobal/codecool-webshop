@@ -13,8 +13,8 @@ import java.util.List;
 public class ProductCategoryDaoJDBC implements AbstractDao<ProductCategory> {
     private DataSource dataSource;
 
-    public ProductCategoryDaoJDBC(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public ProductCategoryDaoJDBC() {
+        this.dataSource = Connector.getInstance().connect();
     }
 
 
@@ -103,9 +103,9 @@ public class ProductCategoryDaoJDBC implements AbstractDao<ProductCategory> {
         List<ProductCategory> allProductCategories = new ArrayList<>();
         String sql = "SELECT * FROM product_category";
 
-        try {
+        try (
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery()){
 
             while (resultSet.next()){
 

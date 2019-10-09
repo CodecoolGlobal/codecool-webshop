@@ -5,16 +5,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ProductCategory extends BaseModel {
-    private int id;
     private String department;
     private List<Product> products;
 
-    public ProductCategory(int ID, String name, String department, String description) {
-        super(name, description);
-        this.id = ID;
+    public ProductCategory(Integer ID, String name, String department, String description) {
+        super(ID, name, description);
         this.department = department;
         this.products = new ArrayList<>();
     }
+
 
     public String getDepartment() {
         return department;

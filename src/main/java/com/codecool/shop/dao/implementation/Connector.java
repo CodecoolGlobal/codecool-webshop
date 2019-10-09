@@ -7,7 +7,15 @@ import java.sql.SQLException;
 
 public class Connector {
 
-    public DataSource connect() throws SQLException {
+    private static Connector instance = new Connector();
+
+    private Connector(){};
+
+    public static Connector getInstance(){
+        return instance;
+    }
+
+    public DataSource connect() {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
 
         dataSource.setDatabaseName(System.getenv("DB_NAME"));
@@ -15,7 +23,6 @@ public class Connector {
         dataSource.setPassword(System.getenv("DB_PASSWORD"));
 
         System.out.println("Trying to connect...");;
-        dataSource.getConnection().close();
         System.out.println("Connection OK");
 
         return dataSource;

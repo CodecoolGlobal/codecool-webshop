@@ -9,8 +9,8 @@ import java.util.List;
 public class CartDaoJDBC implements AbstractDao<Cart> {
     private DataSource dataSource;
 
-    public CartDaoJDBC(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public CartDaoJDBC() {
+        this.dataSource = Connector.getInstance().connect();
     }
 
     public int testSelect(Integer id) {

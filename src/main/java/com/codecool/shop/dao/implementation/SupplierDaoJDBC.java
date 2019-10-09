@@ -13,8 +13,8 @@ import java.util.List;
 public class SupplierDaoJDBC implements AbstractDao<Supplier> {
     private DataSource dataSource;
 
-    public SupplierDaoJDBC(DataSource datasource) {
-        this.dataSource = datasource;
+    public SupplierDaoJDBC() {
+        this.dataSource = Connector.getInstance().connect();
     }
 
 

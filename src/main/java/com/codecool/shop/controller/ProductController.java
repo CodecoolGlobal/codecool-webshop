@@ -40,13 +40,11 @@ public class ProductController extends HttpServlet {
 
     private void setupContextForPage(WebContext context, HttpServletRequest req) throws SQLException {
 
-        Connector connector = new Connector();
-        DataSource dataSource = connector.connect();
-        CartDaoJDBC cartDao = new CartDaoJDBC(dataSource);
-        ProductCategoryDaoJDBC productCategoryDao = new ProductCategoryDaoJDBC(dataSource);
-        SupplierDaoJDBC supplierDao = new SupplierDaoJDBC(dataSource);
+        CartDaoJDBC cartDao = new CartDaoJDBC();
+        ProductCategoryDaoJDBC productCategoryDao = new ProductCategoryDaoJDBC();
+        SupplierDaoJDBC supplierDao = new SupplierDaoJDBC();
 
-        ProductDaoJDBC productDao = new ProductDaoJDBC(dataSource, supplierDao, productCategoryDao);
+        ProductDaoJDBC productDao = new ProductDaoJDBC(supplierDao, productCategoryDao);
 
 
         ProductCategory categoryToSearch = productCategoryDao.find(req.getParameter("category"));
