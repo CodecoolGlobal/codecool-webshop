@@ -4,7 +4,7 @@ import java.util.Currency;
 
 public class Product extends BaseModel {
 
-    private Integer id;
+    private int id;
     private double defaultPrice;
     private Currency defaultCurrency;
     private ProductCategory productCategory;

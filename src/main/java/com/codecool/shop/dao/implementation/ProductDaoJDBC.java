@@ -1,8 +1,6 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.AbstractDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -82,17 +80,24 @@ public class ProductDaoJDBC implements AbstractDao<Product> {
 
 
     @Override
-    public List<Product> getBy(int id) {
+    public List<Product> getBy(String column, int id) {
 
-//        ProductCategory productCategory = (ProductCategory) o;
         List<Product> products = new ArrayList<>();
+        String sql = "";
+        switch (column){
+            case "Category":
+                sql = "SELECT * FROM product WHERE product_category = ?";
+                break;
+            case "Supplier":
+                sql = "SELECT * FROM product WHERE supplier = ?";
+                break;
+        }
 
-        String sql = "SELECT * FROM product WHERE product_category = ?";
+        try (PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(sql);
+                ResultSet resultSet = preparedStatement.executeQuery()){
 
-        try {
-            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
+
 
             while (resultSet.next()){
 
@@ -116,7 +121,6 @@ public class ProductDaoJDBC implements AbstractDao<Product> {
                 );
             }
 
-            resultSet.close();
 
         } catch (SQLException e) {
             e.printStackTrace();

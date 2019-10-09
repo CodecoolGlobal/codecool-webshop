@@ -9,7 +9,7 @@ public interface AbstractDao<T> {
     T find(int id);
     void remove(int id);
     List<T> getAll();
-    <E> List<T> getBy(int id);
+    <E> List<T> getBy(String column, int id);
 
 
 

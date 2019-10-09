@@ -54,6 +54,36 @@ public class SupplierDaoJDBC implements AbstractDao<Supplier> {
         return supplier;
     }
 
+    public Supplier find(String supplierName) {
+        Supplier supplier = null;
+        String sql = "SELECT * FROM supplier WHERE name = ?";
+
+        try {
+            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, supplierName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+
+                int supplierID = resultSet.getInt("id");
+                String supplierName2 = resultSet.getString("name");
+                String supplierDescription = resultSet.getString("description");
+
+                supplier = new Supplier(
+                        supplierID,
+                        supplierName2,
+                        supplierDescription
+                );
+            }
+
+            resultSet.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return supplier;
+    }
+
     @Override
     public void remove(int id) {
 
@@ -65,7 +95,7 @@ public class SupplierDaoJDBC implements AbstractDao<Supplier> {
     }
 
     @Override
-    public <E> List<Supplier> getBy(int id) {
+    public <E> List<Supplier> getBy(String column, int id) {
         return null;
     }
 }

@@ -1,8 +1,5 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.model.BaseModel;
@@ -43,12 +40,17 @@ public class ProductController extends HttpServlet {
 
     private void setupContextForPage(WebContext context, HttpServletRequest req) throws SQLException {
 
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+        Connector connector = new Connector();
+        DataSource dataSource = connector.connect();
+        CartDaoJDBC cartDao = new CartDaoJDBC(dataSource);
+        ProductCategoryDaoJDBC productCategoryDao = new ProductCategoryDaoJDBC(dataSource);
+        SupplierDaoJDBC supplierDao = new SupplierDaoJDBC(dataSource);
 
-        ProductCategory categoryToSearch = productCategoryDataStore.find(req.getParameter("category"));
-        Supplier supplierToSearch = supplierDataStore.find(req.getParameter("supplier"));
+        ProductDaoJDBC productDao = new ProductDaoJDBC(dataSource, supplierDao, productCategoryDao);
+
+
+        ProductCategory categoryToSearch = productCategoryDao.find(req.getParameter("category"));
+        Supplier supplierToSearch = supplierDao.find(req.getParameter("supplier"));
 
         Map<BaseModel, List<Product>> results = new HashMap<>();
         List<Product> matches;
@@ -63,7 +65,7 @@ public class ProductController extends HttpServlet {
 
         if (categoryToSearch != null) {
 
-            matches = productDataStore.getBy(categoryToSearch);
+            matches = productDao.getBy("Category", categoryToSearch.getId());
             results.put(categoryToSearch, matches);
 
             context.setVariable("searched", "category");
@@ -71,30 +73,24 @@ public class ProductController extends HttpServlet {
 
         else if (supplierToSearch != null) {
 
-            matches = productDataStore.getBy(supplierToSearch);
+            matches = productDao.getBy("Supplier", supplierToSearch.getId());
             results.put(supplierToSearch, matches);
 
             context.setVariable("searched", "supplier");
         }
 
         else {
-//            for (ProductCategory category : productCategoryDataStore.getAll()) {
+//            for (ProductCategory category : productCategoryDao.getAll()) {
 //                results.put(category, category.getFirstThreeProducts());
 //                // used instead of category.getFirstThreeProducts(), works only if categery has at least 3 products!!
 //            }
 
-            Connector connector = new Connector();
-            DataSource dataSource = connector.connect();
-            CartDaoJDBC cartDao = new CartDaoJDBC(dataSource);
-            ProductCategoryDaoJDBC productCategoryDao = new ProductCategoryDaoJDBC(dataSource);
-            SupplierDaoJDBC supplierDao = new SupplierDaoJDBC(dataSource);
 
-            ProductDaoJDBC productDao = new ProductDaoJDBC(dataSource, supplierDao, productCategoryDao);
 
             for (ProductCategory category : productCategoryDao.getAll()) {
                 System.out.println(category);
 
-                results.put(category, productDao.getBy(category.getId()));
+                results.put(category, productDao.getBy("Category" ,category.getId()));
             }
         }
         context.setVariable("results", results);

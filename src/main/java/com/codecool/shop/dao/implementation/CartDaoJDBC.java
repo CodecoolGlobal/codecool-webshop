@@ -1,8 +1,6 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.AbstractDao;
-import com.codecool.shop.dao.CartDao;
-import com.codecool.shop.model.Product;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -61,7 +59,7 @@ public class CartDaoJDBC implements AbstractDao<Cart> {
     }
 
     @Override
-    public <E> List<Cart> getBy(int id) {
+    public <E> List<Cart> getBy(String column, int id) {
         return null;
     }
 }

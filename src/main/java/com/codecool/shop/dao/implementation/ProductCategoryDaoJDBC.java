@@ -1,10 +1,7 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.AbstractDao;
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
@@ -19,6 +16,8 @@ public class ProductCategoryDaoJDBC implements AbstractDao<ProductCategory> {
     public ProductCategoryDaoJDBC(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
+
 
     @Override
     public void add(ProductCategory productCategory) {
@@ -58,6 +57,41 @@ public class ProductCategoryDaoJDBC implements AbstractDao<ProductCategory> {
 
         return productCategory;
     }
+
+
+    public ProductCategory find(String categoryName) {
+        ProductCategory productCategory = null;
+        String sql = "SELECT * FROM product_category WHERE name = ?";
+
+        try {
+            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, categoryName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+
+                int productCategoryID = resultSet.getInt("id");
+                String productCategoryName = resultSet.getString("name");
+                String productCategoryDescription = resultSet.getString("description");
+                String productCategoryDepartment = resultSet.getString("department");
+
+                productCategory = new ProductCategory(
+                        productCategoryID,
+                        productCategoryName,
+                        productCategoryDescription,
+                        productCategoryDepartment
+                );
+            }
+
+            resultSet.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return productCategory;
+    }
+
 
     @Override
     public void remove(int id) {
@@ -99,7 +133,7 @@ public class ProductCategoryDaoJDBC implements AbstractDao<ProductCategory> {
     }
 
     @Override
-    public <E> List<ProductCategory> getBy(int id) {
+    public <E> List<ProductCategory> getBy(String column, int id) {
         return null;
     }
 }
