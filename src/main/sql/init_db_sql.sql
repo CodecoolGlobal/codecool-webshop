@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS cart;
 DROP TABLE IF EXISTS orders;
 
+
 CREATE TABLE product_category (
                           id serial PRIMARY KEY,
                           name VARCHAR,
