@@ -44,6 +44,7 @@ public class OrderConfirmationController extends HttpServlet {
         gsonWriter(order);
         session.removeAttribute("payment details");
         session.removeAttribute("order");
+        session.getAttribute("cart");
         session.removeAttribute("cart");
     }
 

@@ -13,6 +13,10 @@ public class Cart {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Cart(int id) {
         this.id = id;
     }

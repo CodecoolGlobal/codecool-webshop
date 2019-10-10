@@ -58,7 +58,7 @@ public class CartController extends HttpServlet {
                 break;
             case "/cart-remove-all":
                 removeAllProductInstancesFromCart(resp, productId, session, gson);
-                cartDao.removeAll(cart.getId());
+                cartDao.removeAll(cart.getId(), productId);
                 break;
         }
 
@@ -101,6 +101,7 @@ public class CartController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        resp.setCharacterEncoding("UTF-8");
 
         HttpSession session = req.getSession();
         session.setAttribute("cart_id", cart.getId());

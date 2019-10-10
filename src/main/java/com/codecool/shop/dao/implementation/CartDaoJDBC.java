@@ -65,8 +65,20 @@ public class CartDaoJDBC implements AbstractDao<Cart> {
         }
     }
 
-    public void removeAll(int cartId) {
+    public void removeAll(int cartId, int productId) {
+        String sql = "DELETE FROM cart WHERE cart_id = ? AND product_id = ?";
 
+        try(Connection con = dataSource.getConnection();
+            PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, cartId);
+            preparedStatement.setInt(2, productId);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
