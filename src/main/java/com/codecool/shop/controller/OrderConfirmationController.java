@@ -93,7 +93,7 @@ public class OrderConfirmationController extends HttpServlet {
         FileWriter file = new FileWriter("src/main/webapp/static/orders/order" + order.getBuyerName() + ".txt");
 
         fileWriter(orderToSave, file);
-        order.getCart().clear();
+//        order.getCart().clear();
     }
 
     private void gsonWriter(Order order, Map<String, String[]> accountInfo) throws IOException {

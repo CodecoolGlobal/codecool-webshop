@@ -54,9 +54,11 @@ public class CartController extends HttpServlet {
                 break;
             case "/cart-remove":
                 removeProductFromCart(resp, productId, session, gson);
+                cartDao.removeProduct(cart.getId(), productId);
                 break;
             case "/cart-remove-all":
                 removeAllProductInstancesFromCart(resp, productId, session, gson);
+                cartDao.removeAll(cart.getId());
                 break;
         }
 

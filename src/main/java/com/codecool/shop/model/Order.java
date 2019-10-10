@@ -22,9 +22,9 @@ public class Order {
         this.cartId = cartId;
     }
 
-    public List<Product> getCart() {
-        return cart;
-    }
+//    public List<Product> getCart() {
+//        return cart;
+//    }
 
     public String getBuyerName() {
         return buyerName;
@@ -51,7 +51,7 @@ public class Order {
     }
 
     private void clear(){
-        cart.clear();
+//        cart.clear();
         this.buyerName = "";
         this.buyerPhoneNumber = "";
         this.buyerBillingAddress = "";

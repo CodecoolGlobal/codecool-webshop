@@ -34,11 +34,11 @@ public class CheckoutController extends HttpServlet {
         String buyerEmailAddress = req.getParameter("buyer-email");
         String buyerBillingAddress = formatBuyerAddress("billing", req);
         String buyerShippingAddress = formatBuyerAddress("shipping", req);
-        int cartId = req.getParameter("cart_id");
+        int cartId = Integer.parseInt(req.getParameter("cart_id"));
 
         HttpSession session = req.getSession();
 
-        List<Product> cart = (List<Product>) session.getAttribute("cart");
+//        List<Product> cart = (List<Product>) session.getAttribute("cart");
 
         Order order = new Order(cartId, buyerName, buyerPhoneNumber, buyerEmailAddress, buyerShippingAddress, buyerBillingAddress);
         session.setAttribute("order", order);

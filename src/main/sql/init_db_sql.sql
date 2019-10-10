@@ -30,6 +30,7 @@ CREATE TABLE product (
 );
 
 CREATE TABLE cart (
+                         id SERIAL,
                          cart_id INTEGER,
                          product_id INTEGER REFERENCES product(id)
 );
