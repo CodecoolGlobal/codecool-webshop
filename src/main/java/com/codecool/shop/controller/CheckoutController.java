@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-//TODO format ugly ass shit checkout html
+
 @WebServlet(urlPatterns = {"/checkout"})
 public class CheckoutController extends HttpServlet {
 
@@ -34,12 +34,13 @@ public class CheckoutController extends HttpServlet {
         String buyerEmailAddress = req.getParameter("buyer-email");
         String buyerBillingAddress = formatBuyerAddress("billing", req);
         String buyerShippingAddress = formatBuyerAddress("shipping", req);
+        int cartId = req.getParameter("cart_id");
 
         HttpSession session = req.getSession();
 
         List<Product> cart = (List<Product>) session.getAttribute("cart");
 
-        Order order = new Order(cart, buyerName, buyerPhoneNumber, buyerEmailAddress, buyerShippingAddress, buyerBillingAddress);
+        Order order = new Order(cartId, buyerName, buyerPhoneNumber, buyerEmailAddress, buyerShippingAddress, buyerBillingAddress);
         session.setAttribute("order", order);
 
         resp.sendRedirect("/payment");
@@ -61,4 +62,6 @@ public class CheckoutController extends HttpServlet {
 
         return buyerAddress;
     }
+
+
 }

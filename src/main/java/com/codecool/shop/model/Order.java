@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-    private transient List<Product> cart = new ArrayList<>();
     private String buyerName;
     private String buyerPhoneNumber;
     private String buyerEmailAddress;
     private String buyerShippingAddress;
     private String buyerBillingAddress;
     private String id;
+    private int cartId;
 
-    public Order(List<Product> cart, String buyerName, String buyerPhoneNumber, String buyerEmailAddress, String buyerShippingAddress, String buyerBillingAddress) {
-        this.cart = cart;
+    public Order(int cartId, String buyerName, String buyerPhoneNumber, String buyerEmailAddress, String buyerShippingAddress, String buyerBillingAddress) {
         this.buyerName = buyerName;
         this.buyerPhoneNumber = buyerPhoneNumber;
         this.buyerEmailAddress = buyerEmailAddress;
         this.buyerShippingAddress = buyerShippingAddress;
         this.buyerBillingAddress = buyerBillingAddress;
         this.id = java.util.UUID.randomUUID().toString();
+        this.cartId = cartId;
     }
 
     public List<Product> getCart() {
@@ -61,4 +61,7 @@ public class Order {
     }
 
 
+    public int getCartId() {
+        return this.cartId;
+    }
 }
