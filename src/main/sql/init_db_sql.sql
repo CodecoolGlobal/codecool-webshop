@@ -40,7 +40,7 @@ CREATE TABLE orders (
     buyer_email VARCHAR NOT NULL,
     buyer_shipping_address VARCHAR NOT NULL,
     buyer_billing_address VARCHAR NOT NULL,
-    cart_id INTEGER REFERENCES cart(cart_id)
+    cart_id INTEGER
 );
 
 INSERT INTO supplier (name, description) VALUES

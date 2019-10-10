@@ -1,6 +1,9 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.AbstractDao;
+import com.codecool.shop.model.Product;
+import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -16,6 +19,23 @@ public class CartDaoJDBC implements AbstractDao<Cart> {
 
     @Override
     public void add(Cart cart) {
+
+        int lastIndex = cart.getProductsInCart().size() - 1;
+        Product mostRecentProduct = cart.getProductsInCart().get(lastIndex);
+
+        String sql = "INSERT INTO cart(cart_id, product_id) VALUES (?, ?)";
+
+        try(Connection con = dataSource.getConnection();
+            PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, cart.getId());
+            preparedStatement.setInt(2, mostRecentProduct.getId());
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -37,5 +57,27 @@ public class CartDaoJDBC implements AbstractDao<Cart> {
     @Override
     public <E> List<Cart> getBy(String column, int id) {
         return null;
+    }
+
+    public int getLast() {
+        int lastIndex = 0;
+        String sql = "SELECT cart_id FROM cart ORDER BY cart_id DESC LIMIT 1";
+
+        try(Connection con = dataSource.getConnection();
+            PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+
+
+                while (resultSet.next()) {
+                    lastIndex = resultSet.getInt("cart_id");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lastIndex;
     }
 }

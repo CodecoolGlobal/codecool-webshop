@@ -6,6 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
+    private int id;
+    private CartDaoJDBC cartDao = new CartDaoJDBC();
+
+    public int getId() {
+        return id;
+    }
+
+    public Cart(int id) {
+        this.id = id;
+    }
+
     protected List<Product> productsInCart = new ArrayList<>();
 
     public List<Product> getProductsInCart() {

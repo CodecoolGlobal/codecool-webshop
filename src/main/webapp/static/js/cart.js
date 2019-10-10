@@ -18,6 +18,15 @@ function updatePrices() {
 
         newTotalPrice += newSubtotal;
 
+        let checkoutDiv = document.querySelector("#checkout");
+
+        if (newTotalPrice > 0) {
+            checkoutDiv.style.display = "block";
+        }
+        else {
+            checkoutDiv.style.display = "none";
+        }
+
     }
 
     totalPriceOfCartElement.textContent = `${newTotalPrice.toFixed(2).toString()} (USD)`;

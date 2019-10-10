@@ -1,7 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.implementation.Cart;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.Product;
 import com.google.gson.Gson;
 import org.thymeleaf.TemplateEngine;
@@ -25,12 +25,22 @@ import static java.util.stream.Collectors.groupingBy;
 @WebServlet(urlPatterns = {"/cart", "/cart-add", "/cart-remove", "/cart-remove-all"})
 public class CartController extends HttpServlet {
 
-    private Cart cart = new Cart();
+    ProductCategoryDaoJDBC productCategoryDao = new ProductCategoryDaoJDBC();
+    SupplierDaoJDBC supplierDao = new SupplierDaoJDBC();
+    ProductDaoJDBC productDao = new ProductDaoJDBC(supplierDao, productCategoryDao);
+    CartDaoJDBC cartDao = new CartDaoJDBC();
+
+    int newCartId = cartDao.getLast() + 1;
+
+    Cart cart = new Cart(newCartId);
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         String url = req.getServletPath();
+
+        session.setAttribute("cart_id", cart.getId());
 
         Reader reader = req.getReader();
         Gson gson = new Gson();
@@ -40,6 +50,7 @@ public class CartController extends HttpServlet {
         switch(url) {
             case "/cart-add":
                 addProductToCart(resp, productId, session, gson);
+                cartDao.add(cart);
                 break;
             case "/cart-remove":
                 removeProductFromCart(resp, productId, session, gson);
@@ -52,9 +63,7 @@ public class CartController extends HttpServlet {
     }
 
     private void removeAllProductInstancesFromCart(HttpServletResponse resp, int productId, HttpSession session, Gson gson) throws ServletException, IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-
-        cart.removeAllProductInstances(productDataStore.find(productId));
+        cart.removeAllProductInstances(productDao.find(productId));
         session.setAttribute("cart", cart.getProductsInCart());
 
         Writer out = resp.getWriter();
@@ -62,9 +71,8 @@ public class CartController extends HttpServlet {
     }
 
     private void removeProductFromCart( HttpServletResponse resp, int productId, HttpSession session, Gson gson) throws ServletException, IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
 
-        cart.removeProduct(productDataStore.find(productId));
+        cart.removeProduct(productDao.find(productId));
         session.setAttribute("cart", cart.getProductsInCart());
 
         Writer out = resp.getWriter();
@@ -79,9 +87,8 @@ public class CartController extends HttpServlet {
     }
 
     private void addProductToCart(HttpServletResponse resp, int productId, HttpSession session, Gson gson) throws IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
 
-        cart.addProduct(productDataStore.find(productId));
+        cart.addProduct(productDao.find(productId));
         session.setAttribute("cart", cart.getProductsInCart());
 
         Writer out = resp.getWriter();
@@ -94,6 +101,7 @@ public class CartController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         HttpSession session = req.getSession();
+        session.setAttribute("cart_id", cart.getId());
 
         List<Product> cartProductList = (List<Product>) session.getAttribute("cart");
         Map<Product, Integer> productQuantities = new HashMap<>();
