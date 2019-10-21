@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS product_category;
 DROP TABLE IF EXISTS supplier;
-
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE product_category (
                           id serial PRIMARY KEY,
@@ -29,10 +29,19 @@ CREATE TABLE product (
                          image VARCHAR
 );
 
+CREATE TABLE users (
+    id SERIAL unique PRIMARY KEY,
+    user_name VARCHAR UNIQUE NOT NULL ,
+    password TEXT NOT NULL,
+    email TEXT NOT NULL
+);
+
 CREATE TABLE cart (
                          id SERIAL,
                          cart_id INTEGER,
-                         product_id INTEGER REFERENCES product(id)
+                         product_id INTEGER REFERENCES product(id),
+                         user_id INTEGER REFERENCES users(id)
+
 );
 
 CREATE TABLE orders (
@@ -42,7 +51,9 @@ CREATE TABLE orders (
     buyer_email VARCHAR NOT NULL,
     buyer_shipping_address VARCHAR NOT NULL,
     buyer_billing_address VARCHAR NOT NULL,
-    cart_id INTEGER
+    cart_id INTEGER,
+    user_id INTEGER REFERENCES users(id)
+
 );
 
 INSERT INTO supplier (name, description) VALUES
