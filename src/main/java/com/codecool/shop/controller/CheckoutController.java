@@ -1,6 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.implementation.CheckoutDaoJDBC;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 import org.thymeleaf.TemplateEngine;
@@ -18,6 +19,8 @@ import java.util.List;
 
 @WebServlet(urlPatterns = {"/checkout"})
 public class CheckoutController extends HttpServlet {
+
+    CheckoutDaoJDBC checkout = new CheckoutDaoJDBC();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,9 +42,11 @@ public class CheckoutController extends HttpServlet {
         int cartId = (int) session.getAttribute("cart_id");
 
 
+
 //        List<Product> cart = (List<Product>) session.getAttribute("cart");
 
         Order order = new Order(cartId, buyerName, buyerPhoneNumber, buyerEmailAddress, buyerShippingAddress, buyerBillingAddress);
+        checkout.add(order);
         session.setAttribute("order", order);
 
         resp.sendRedirect("/payment");

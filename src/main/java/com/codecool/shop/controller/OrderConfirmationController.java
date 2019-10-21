@@ -71,7 +71,7 @@ public class OrderConfirmationController extends HttpServlet {
                     InternetAddress.parse(to));
             message.setSubject("CodeCool Webshop");
             message.setText("Thank you for the order!" +
-                    "\nYour order will be delivered within 2-3 workdays." +
+                    "\nYour order will be delivered within A FEW SECONDS." +
                     "\n" +
                     "\nOrder details: " +
                     "\n" +
@@ -80,7 +80,7 @@ public class OrderConfirmationController extends HttpServlet {
                     "\nBilling address: " + order.getBuyerBillingAddress() +
                     "\nShipping address: " + order.getBuyerShippingAddress() +
                     "\n" +
-                    "\nWebshop Niggaz");
+                    "\nWebshop Ni**az");
             Transport.send(message);
 
         } catch (MessagingException e) {

@@ -18,8 +18,8 @@ public class ProductDaoJDBC implements AbstractDao<Product> {
     private AbstractDao supplierDaoJDBC;
     private AbstractDao productCategoryDaoJDBC;
 
-    public ProductDaoJDBC(SupplierDaoJDBC supplierDaoJDBC, ProductCategoryDaoJDBC productCategoryDaoJDBC) {
-        this.dataSource = Connector.getInstance().connect();
+    public ProductDaoJDBC(Connector connection,SupplierDaoJDBC supplierDaoJDBC, ProductCategoryDaoJDBC productCategoryDaoJDBC) {
+        this.dataSource = connection.connect();
         this.supplierDaoJDBC = supplierDaoJDBC;
         this.productCategoryDaoJDBC = productCategoryDaoJDBC;
     }

@@ -45,7 +45,7 @@ public class ProductController extends HttpServlet {
         ProductCategoryDaoJDBC productCategoryDao = new ProductCategoryDaoJDBC();
         SupplierDaoJDBC supplierDao = new SupplierDaoJDBC();
 
-        ProductDaoJDBC productDao = new ProductDaoJDBC(supplierDao, productCategoryDao);
+        ProductDaoJDBC productDao = new ProductDaoJDBC(Connector.getInstance() ,supplierDao, productCategoryDao);
 
 
         ProductCategory categoryToSearch = productCategoryDao.find(req.getParameter("category"));

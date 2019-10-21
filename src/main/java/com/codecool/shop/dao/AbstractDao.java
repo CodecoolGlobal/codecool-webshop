@@ -1,6 +1,5 @@
 package com.codecool.shop.dao;
 
-
 import java.util.List;
 
 public interface AbstractDao<T> {
@@ -10,7 +9,5 @@ public interface AbstractDao<T> {
     void remove(int id);
     List<T> getAll();
     <E> List<T> getBy(String column, int id);
-
-
 
 }
