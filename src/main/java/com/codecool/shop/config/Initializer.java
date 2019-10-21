@@ -14,13 +14,7 @@ import java.sql.*;
 @WebListener
 public class Initializer implements ServletContextListener {
 
-    Connector connector;
-    DataSource dataSource;
-
-    private CartDaoJDBC cartDao = new CartDaoJDBC();
     private ProductCategoryDaoJDBC productCategoryDao = new ProductCategoryDaoJDBC();
-    private SupplierDaoJDBC supplierDao = new SupplierDaoJDBC();
-    private ProductDaoJDBC productDao = new ProductDaoJDBC(supplierDao, productCategoryDao);
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {

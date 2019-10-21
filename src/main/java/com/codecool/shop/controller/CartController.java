@@ -27,7 +27,7 @@ public class CartController extends HttpServlet {
 
     ProductCategoryDaoJDBC productCategoryDao = new ProductCategoryDaoJDBC();
     SupplierDaoJDBC supplierDao = new SupplierDaoJDBC();
-    ProductDaoJDBC productDao = new ProductDaoJDBC(supplierDao, productCategoryDao);
+    ProductDaoJDBC productDao = new ProductDaoJDBC(Connector.getInstance(), supplierDao, productCategoryDao);
     CartDaoJDBC cartDao = new CartDaoJDBC();
 
     int newCartId = cartDao.getLast() + 1;

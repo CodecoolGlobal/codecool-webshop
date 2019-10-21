@@ -1,8 +1,8 @@
-DROP TABLE IF EXISTS product_category;
-DROP TABLE IF EXISTS supplier;
-DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS cart;
 DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS product_category;
+DROP TABLE IF EXISTS supplier;
 
 
 CREATE TABLE product_category (
