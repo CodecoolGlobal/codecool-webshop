@@ -28,11 +28,13 @@ public class UserDaoJDBC {
 
                 while (resultSet.next()) {
 
-                    int productID = resultSet.getInt("id");
-                    String productName = resultSet.getString("name");
-                    String productDesc = resultSet.getString("description");
+                    int userID = resultSet.getInt("id");
+                    String userPassword = resultSet.getString("password");
+                    String user_Name = resultSet.getString("user_name");
 
-                    user =
+                    user.put("id", String.valueOf(userID));
+                    user.put("password", userPassword);
+                    user.put("userName", user_Name);
                 }
             }
         } catch (SQLException e) {
@@ -40,5 +42,23 @@ public class UserDaoJDBC {
         }
 
         return user;
+    }
+
+    public void add(String userName, String hashPassword, String email) {
+
+        String sql = "INSERT INTO users(user_name, password, email) VALUES (?, ?, ?)";
+
+        try(Connection con = dataSource.getConnection();
+            PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, userName);
+            preparedStatement.setString(2, hashPassword);
+            preparedStatement.setString(3, email);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

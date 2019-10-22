@@ -30,12 +30,18 @@ public class ProductController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
+        HttpSession session = req.getSession();
+        System.out.println(session.getAttribute("user_name"));
+
         try {
             setupContextForPage(context, req);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         resp.setCharacterEncoding("UTF-8");
+
+
+
         engine.process("product/index.html", context, resp.getWriter());
     }
 
@@ -84,5 +90,8 @@ public class ProductController extends HttpServlet {
             }
         }
         context.setVariable("results", results);
+
+        String userName = String.valueOf(session.getAttribute("user_name"));
+        context.setVariable("user", userName);
     }
 }
