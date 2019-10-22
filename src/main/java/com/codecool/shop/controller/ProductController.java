@@ -79,16 +79,7 @@ public class ProductController extends HttpServlet {
         }
 
         else {
-//            for (ProductCategory category : productCategoryDao.getAll()) {
-//                results.put(category, category.getFirstThreeProducts());
-//                // used instead of category.getFirstThreeProducts(), works only if categery has at least 3 products!!
-//            }
-
-
-
             for (ProductCategory category : productCategoryDao.getAll()) {
-                System.out.println(category);
-
                 results.put(category, productDao.getBy("Category" ,category.getId()));
             }
         }

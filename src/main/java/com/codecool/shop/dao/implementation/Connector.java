@@ -22,8 +22,8 @@ public class Connector {
         dataSource.setUser(System.getenv("DB_USER"));
         dataSource.setPassword(System.getenv("DB_PASSWORD"));
 
-        System.out.println("Trying to connect...");;
-        System.out.println("Connection OK");
+        /*System.out.println("Trying to connect...");;
+        System.out.println("Connection OK");*/
 
         return dataSource;
     }
