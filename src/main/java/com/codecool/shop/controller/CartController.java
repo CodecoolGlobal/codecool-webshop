@@ -38,6 +38,9 @@ public class CartController extends HttpServlet {
         HttpSession session = req.getSession();
         String url = req.getServletPath();
 
+        int userId = Integer.parseInt((String) session.getAttribute("user_id"));
+        cart.setUserId(userId);
+
         session.setAttribute("cart_id", cart.getId());
 
         Reader reader = req.getReader();

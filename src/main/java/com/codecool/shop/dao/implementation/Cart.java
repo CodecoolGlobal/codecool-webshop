@@ -8,6 +8,7 @@ import java.util.List;
 public class Cart {
     private int id;
     private CartDaoJDBC cartDao = new CartDaoJDBC();
+    private int userId;
 
     public int getId() {
         return id;
@@ -19,6 +20,14 @@ public class Cart {
 
     public Cart(int id) {
         this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     protected List<Product> productsInCart = new ArrayList<>();

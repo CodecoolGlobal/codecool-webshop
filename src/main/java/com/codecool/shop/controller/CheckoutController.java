@@ -40,12 +40,10 @@ public class CheckoutController extends HttpServlet {
 
         HttpSession session = req.getSession();
         int cartId = (int) session.getAttribute("cart_id");
+        int userId = Integer.parseInt((String) session.getAttribute("user_id"));
 
 
-
-//        List<Product> cart = (List<Product>) session.getAttribute("cart");
-
-        Order order = new Order(cartId, buyerName, buyerPhoneNumber, buyerEmailAddress, buyerShippingAddress, buyerBillingAddress);
+        Order order = new Order(cartId, buyerName, buyerPhoneNumber, buyerEmailAddress, buyerShippingAddress, buyerBillingAddress, userId);
         checkout.add(order);
         session.setAttribute("order", order);
 

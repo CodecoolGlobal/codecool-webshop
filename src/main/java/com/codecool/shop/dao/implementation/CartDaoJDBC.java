@@ -23,13 +23,14 @@ public class CartDaoJDBC implements AbstractDao<Cart> {
         int lastIndex = cart.getProductsInCart().size() - 1;
         Product mostRecentProduct = cart.getProductsInCart().get(lastIndex);
 
-        String sql = "INSERT INTO cart(cart_id, product_id) VALUES (?, ?)";
+        String sql = "INSERT INTO cart(cart_id, product_id, user_id) VALUES (?, ?, ?)";
 
         try(Connection con = dataSource.getConnection();
             PreparedStatement preparedStatement = con.prepareStatement(sql)) {
 
             preparedStatement.setInt(1, cart.getId());
             preparedStatement.setInt(2, mostRecentProduct.getId());
+            preparedStatement.setInt(3, cart.getUserId());
 
             preparedStatement.executeUpdate();
 

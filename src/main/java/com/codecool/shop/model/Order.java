@@ -11,8 +11,9 @@ public class Order {
     private String buyerBillingAddress;
     private String id;
     private int cartId;
+    private int userId;
 
-    public Order(int cartId, String buyerName, String buyerPhoneNumber, String buyerEmailAddress, String buyerShippingAddress, String buyerBillingAddress) {
+    public Order(int cartId, String buyerName, String buyerPhoneNumber, String buyerEmailAddress, String buyerShippingAddress, String buyerBillingAddress, int userId) {
         this.buyerName = buyerName;
         this.buyerPhoneNumber = buyerPhoneNumber;
         this.buyerEmailAddress = buyerEmailAddress;
@@ -20,11 +21,12 @@ public class Order {
         this.buyerBillingAddress = buyerBillingAddress;
         this.id = java.util.UUID.randomUUID().toString();
         this.cartId = cartId;
+        this.userId = userId;
     }
 
-//    public List<Product> getCart() {
-//        return cart;
-//    }
+    public int getUserId() {
+        return userId;
+    }
 
     public String getBuyerName() {
         return buyerName;

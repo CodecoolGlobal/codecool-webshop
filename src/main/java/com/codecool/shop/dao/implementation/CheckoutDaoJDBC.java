@@ -22,8 +22,8 @@ public class CheckoutDaoJDBC implements AbstractDao {
         Order order = (Order) o;
 
         String sql = "INSERT INTO orders(buyer_name, buyer_phone," +
-                "buyer_email, buyer_shipping_address, buyer_billing_address, cart_id" +
-                ") VALUES (?, ?, ?, ?, ?, ?)";
+                "buyer_email, buyer_shipping_address, buyer_billing_address, cart_id, user_id" +
+                ") VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection con = dataSource.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement(sql);
         ) {
@@ -32,8 +32,8 @@ public class CheckoutDaoJDBC implements AbstractDao {
             preparedStatement.setString(3, order.getBuyerEmailAddress());
             preparedStatement.setString(4, order.getBuyerBillingAddress());
             preparedStatement.setString(5, order.getBuyerShippingAddress());
-            //TODO cart_id
             preparedStatement.setInt(6, order.getCartId());
+            preparedStatement.setInt(7, order.getUserId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
