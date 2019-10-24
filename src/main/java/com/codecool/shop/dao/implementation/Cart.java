@@ -7,7 +7,6 @@ import java.util.List;
 
 public class Cart {
     private int id;
-    private CartDaoJDBC cartDao = new CartDaoJDBC();
     private int userId;
 
     public int getId() {

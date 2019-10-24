@@ -28,8 +28,8 @@ public class CartController extends HttpServlet {
     ProductDaoJDBC productDao = new ProductDaoJDBC(Connector.getInstance(), supplierDao, productCategoryDao);
     CartDaoJDBC cartDao = new CartDaoJDBC();
 
-    int newCartId = cartDao.getLast() + 1;
 
+    int newCartId = cartDao.getLast() + 1;
     Cart cart = new Cart(newCartId);
 
 
