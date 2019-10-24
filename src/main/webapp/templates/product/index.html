@@ -68,20 +68,20 @@
 </div>
 
 <div class="jumbotron text-center">
-
-    <button th:text="${user ? 'LOGOUT' : 'LOGIN'}" type="button" class="btn btn-primary loginBTN" data-toggle="modal" data-target="#exampleModal"></button>
-    <h1><a href="/">Codecool Shop</a></h1>
-    <div class="cart-size-div">
-        <span th:text="${cartSize ? cartSize : 0}" id="cart-size"></span>
-        <span> items in Cart </span>
-
-        <br>
-        <a href="/cart">Show Cart</a>
-        <span>&#128722;</span>
+    <div class="empty-flex"></div>
+    <div class="button-flex">
+        <button th:text="${user ? 'LOGOUT' : 'LOGIN'}" type="button" class="btn btn-primary loginBTN" data-toggle="modal" data-target="#exampleModal"></button>
     </div>
-
-    <!-- Button trigger modal -->
-
+    <div class="logo-flex">
+        <h1><a href="/">Codecool Shop</a></h1>
+        <div class="cart-size-div">
+            <span th:text="${cartSize ? cartSize : 0}" id="cart-size"></span>
+            <span> items in Cart </span>
+            <br>
+            <a href="/cart">Show Cart</a>
+            <span>&#128722;</span>
+        </div>
+    </div>
 </div>
 
 <div class="container">

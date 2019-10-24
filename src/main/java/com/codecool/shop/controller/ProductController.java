@@ -9,15 +9,12 @@ import com.codecool.shop.model.Supplier;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,32 +23,22 @@ import java.util.Map;
 public class ProductController extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        HttpSession session = req.getSession();
-        System.out.println(session.getAttribute("user_name"));
-
-        try {
-            setupContextForPage(context, req);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        setupContextForPage(context, req);
         resp.setCharacterEncoding("UTF-8");
-
-
 
         engine.process("product/index.html", context, resp.getWriter());
     }
 
-    private void setupContextForPage(WebContext context, HttpServletRequest req) throws SQLException {
+    private void setupContextForPage(WebContext context, HttpServletRequest req) {
 
-        CartDaoJDBC cartDao = new CartDaoJDBC();
         ProductCategoryDaoJDBC productCategoryDao = new ProductCategoryDaoJDBC();
         SupplierDaoJDBC supplierDao = new SupplierDaoJDBC();
 
-        ProductDaoJDBC productDao = new ProductDaoJDBC(Connector.getInstance() ,supplierDao, productCategoryDao);
+        ProductDaoJDBC productDao = new ProductDaoJDBC(Connector.getInstance(), supplierDao, productCategoryDao);
 
 
         ProductCategory categoryToSearch = productCategoryDao.find(req.getParameter("category"));
@@ -74,24 +61,22 @@ public class ProductController extends HttpServlet {
             results.put(categoryToSearch, matches);
 
             context.setVariable("searched", "category");
-        }
-
-        else if (supplierToSearch != null) {
+        } else if (supplierToSearch != null) {
 
             matches = productDao.getBy("Supplier", supplierToSearch.getId());
             results.put(supplierToSearch, matches);
 
             context.setVariable("searched", "supplier");
-        }
-
-        else {
+        } else {
             for (ProductCategory category : productCategoryDao.getAll()) {
-                results.put(category, productDao.getBy("Category" ,category.getId()));
+                results.put(category, productDao.getBy("Category", category.getId()));
             }
         }
         context.setVariable("results", results);
 
-        String userName = String.valueOf(session.getAttribute("user_name"));
-        context.setVariable("user", userName);
+        if (session.getAttribute("user_name") != null){
+            String userName = String.valueOf(session.getAttribute("user_name"));
+            context.setVariable("user", userName);
+        }
     }
 }

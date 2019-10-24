@@ -46,10 +46,24 @@
 
 .jumbotron.text-center {
     position: sticky;
+    display: flex;
     top: 0;
     z-index: 1;
-    height: 130px;
-    padding: 3px;
+    padding: 5px;
+}
+
+.empty-flex{
+    flex:1;
+    order: 1;
+}
+
+.button-flex{
+    flex: 1;
+    order: 3;
+}
+.logo-flex{
+    flex: 1;
+    order: 2;
 }
 
 .cart-size-div {

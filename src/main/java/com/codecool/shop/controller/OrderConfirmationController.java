@@ -2,7 +2,6 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.model.Order;
-import com.codecool.shop.model.Product;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import org.thymeleaf.TemplateEngine;
@@ -24,11 +23,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(urlPatterns = {"/order_confirmation"})
 public class OrderConfirmationController extends HttpServlet {
 
-    final String FROM = "webshopnigg4z@gmail.com";
-    final String USERNAME = "webshopnigg4z@gmail.com";
-    final String PASSWORD = "JavaIsGood";
     private Gson gson = new Gson();
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -39,16 +34,22 @@ public class OrderConfirmationController extends HttpServlet {
         Order order = (Order) session.getAttribute("order");
         Map<String, String[]> paymentDetails = (Map<String, String[]>) session.getAttribute("payment details");
 
-        orderConfirmation(order, USERNAME, PASSWORD, FROM);
-        gsonWriter(order,paymentDetails);
-        gsonWriter(order);
-        session.removeAttribute("payment details");
-        session.removeAttribute("order");
-        session.getAttribute("cart");
-        session.removeAttribute("cart");
+        try{
+            orderConfirmation(order);
+            gsonWriter(order,paymentDetails);
+            gsonWriter(order);
+            session.removeAttribute("payment details");
+            session.removeAttribute("order");
+            session.getAttribute("cart");
+            session.removeAttribute("cart");
+        } catch (NullPointerException e){
+            System.out.println("Empty fields in order.");
+        }
+
     }
 
-    private void orderConfirmation(Order order, String username, String password, String from) {
+    private void orderConfirmation(Order order) throws NullPointerException {
+
         String to = order.getBuyerEmailAddress();
 
         Properties props = new Properties();
@@ -60,13 +61,13 @@ public class OrderConfirmationController extends HttpServlet {
         Session sessionEmail = Session.getInstance(props,
                 new Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
+                        return new PasswordAuthentication("webshopnigg4z@gmail.com", "JavaIsGood");
                     }
                 });
 
         try {
             Message message = new MimeMessage(sessionEmail);
-            message.setFrom(new InternetAddress(from));
+            message.setFrom(new InternetAddress("webshopnigg4z@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(to));
             message.setSubject("CodeCool Webshop");
