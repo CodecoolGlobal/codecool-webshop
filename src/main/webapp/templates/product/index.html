@@ -70,11 +70,16 @@
 <div class="jumbotron text-center">
     <div class="empty-flex"></div>
     <div class="button-flex">
-        <button th:text="${user ? 'LOGOUT' : 'LOGIN'}" type="button" class="btn btn-primary loginBTN" data-toggle="modal" data-target="#exampleModal"></button>
+        <span th:if="${user == null}">
+            <button type="button" class="btn btn-primary loginBTN" data-toggle="modal" data-target="#exampleModal">LOGIN</button>
+        </span>
+        <span th:if="${user}">
+            <a href="/logout"><button type="button" class="btn btn-primary loginBTN">LOGOUT</button></a>
+        </span>
     </div>
     <div class="logo-flex">
         <h1><a href="/">Codecool Shop</a></h1>
-        <div class="cart-size-div">
+        <div th:if="${user}" class="cart-size-div">
             <span th:text="${cartSize ? cartSize : 0}" id="cart-size"></span>
             <span> items in Cart </span>
             <br>
@@ -115,7 +120,7 @@
                         <div class="card-text">
                             <p class="lead" th:text="${product.price}">100 USD</p>
                         </div>
-                        <div class="card-text">
+                        <div th:if="${user}" class="card-text">
                             <button class="add-to-cart btn btn-success" th:attr="data-product-id=${product.id}">Add to cart</button>
                         </div>
                     </div>
