@@ -30,6 +30,10 @@ public class ProductController extends HttpServlet {
         setupContextForPage(context, req);
         resp.setCharacterEncoding("UTF-8");
 
+
+        HttpSession session = req.getSession();
+        System.out.println(session.getAttribute("user_name"));
+
         engine.process("product/index.html", context, resp.getWriter());
     }
 
